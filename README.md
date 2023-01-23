@@ -1,7 +1,7 @@
 # Recipe Maker #
 *By Tracy Gan*
  
-### Description ###
+### Description #
 >This application is a **food recipe application**. It takes in the ingredients that the user has in their fridge and produces different recipes that the user can make. This application would include dish preferences for *vegans*, *vegetarians*, *pescatarians* and *omnivores*.
 
 >This application is intended to be used by people who are extremely indecisive on what to eat to prevent spending too much time on deciding what to cook for themselves. Moreover, with the grocery prices on the rise, I am interested in making this algorithm to hopefully help people who are on a budget, just like me, to cook a dish without having to spend on additional ingredients to cook another dish.
