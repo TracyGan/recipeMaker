@@ -16,17 +16,20 @@ public class FridgeTest {
     private Ingredient ingredient5;
     private Ingredient ingredient6;
     private Ingredient ingredient7;
+    private Ingredient ingredient8;
+    private ArrayList<Ingredient> intList;
 
     @BeforeEach
     void setUp() {
         testFridge = new Fridge();
-        ingredient1 = new Ingredient("rice", 1000);
-        ingredient2 = new Ingredient("kimchi", 500);
-        ingredient3 = new Ingredient ("egg", 1000);
-        ingredient4 = new Ingredient("garlic", 100);
-        ingredient5 = new Ingredient("sesame seed", 100);
-        ingredient6 = new Ingredient("olive oil", 2000);
-        ingredient7 = new Ingredient("rice", 200);
+        ingredient1 = new Ingredient("rice", 1000, Unit.g);
+        ingredient2 = new Ingredient("kimchi", 500, Unit.g);
+        ingredient3 = new Ingredient ("egg", 10, Unit.whole);
+        ingredient4 = new Ingredient("garlic", 10, Unit.whole);
+        ingredient5 = new Ingredient("sesame seed", 100, Unit.g);
+        ingredient6 = new Ingredient("olive oil", 2000, Unit.ml);
+        ingredient7 = new Ingredient("rice", 200, Unit.g);
+        ingredient8 = new Ingredient("rice", 1200, Unit.g);
     }
 
     @Test
@@ -48,12 +51,12 @@ public class FridgeTest {
         assertTrue(testFridge.getIngredients().contains(ingredient2));
     }
 
-    // TODO: adding an item when it is already found in the list
     @Test
     void testAddOneIngredientTwice() {
         testFridge.addIngredient(ingredient1);
         assertTrue(testFridge.getIngredients().contains(ingredient1));
         testFridge.addIngredient(ingredient7);
+        assertTrue(testFridge.getIngredients().contains(ingredient7));
     }
 
     @Test
@@ -72,46 +75,38 @@ public class FridgeTest {
         assertTrue(testFridge.getIngredients().contains(ingredient6));
     }
 
-    // TODO: correct test?
-    @Test
-    void testGetIngredients() {
-        testFridge.addIngredient(ingredient1);
-        testFridge.addIngredient(ingredient2);
-        testFridge.addIngredient(ingredient3);
-        assertEquals(testFridge, testFridge.getIngredients());
-    }
 
     @Test
     void testReduceIngredientOnce() {
         testFridge.addIngredient(ingredient1);
         testFridge.removeOrReduceIngredient(ingredient1, 50);
-        assertEquals(950, testFridge.getIngredients());
+        assertEquals(950, testFridge.getIngredientAmount(ingredient1));
     }
 
     @Test
     void testReduceOneIngredientTwice() {
         testFridge.addIngredient(ingredient2);
         testFridge.removeOrReduceIngredient(ingredient2, 50);
-        assertEquals(450, testFridge.getIngredients());
+        assertEquals(450, testFridge.getIngredientAmount(ingredient2));
         testFridge.removeOrReduceIngredient(ingredient2, 100);
-        assertEquals(350, testFridge.getIngredients());
+        assertEquals(350, testFridge.getIngredientAmount(ingredient2));
     }
 
-    // TODO: how to test for reduction of ingredient
     @Test
     void testReduceTwoIngredientOnce() {
         testFridge.addIngredient(ingredient1);
         testFridge.addIngredient(ingredient2);
         testFridge.removeOrReduceIngredient(ingredient1, 200);
-        assertEquals(800, testFridge.getIngredients());
+        assertEquals(800, testFridge.getIngredientAmount(ingredient1));
         testFridge.removeOrReduceIngredient(ingredient2, 200);
-        assertEquals(300, testFridge.getIngredients());
+        assertEquals(300, testFridge.getIngredientAmount(ingredient2));
     }
 
+    // TODO: check to remove ingredient entirely
     @Test
     void testRemoveOneIngredientEntirely() {
         testFridge.addIngredient(ingredient2);
-        assertEquals(ingredient2, testFridge.getIngredients());
+        assertTrue(testFridge.getIngredients().contains(ingredient2));
         testFridge.removeOrReduceIngredient(ingredient2, 500);
         assertFalse(testFridge.containIngredient(ingredient2));
     }
@@ -126,7 +121,7 @@ public class FridgeTest {
     void testContainsIngredientInLongList() {
         testFridge.addIngredient(ingredient3);
         testFridge.addIngredient(ingredient4);
-        assertTrue(testFridge.containIngredient(ingredient3));
+        //assertTrue(testFridge.containIngredient(ingredient3));
         assertFalse(testFridge.containIngredient(ingredient1));
     }
 

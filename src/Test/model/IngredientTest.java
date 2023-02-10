@@ -1,5 +1,6 @@
-package ca.ubc.cpsc210.test;
+package model;
 
+import model.Unit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,25 +12,33 @@ public class IngredientTest {
 
     @BeforeEach
     void setUp() {
-        testIngredients = new Ingredient("Raw Chicken", 500);
+        testIngredients = new Ingredient("raw chicken", 500, Unit.g);
     }
 
     @Test
     void testConstructor() {
-        assertEquals("Raw chicken", testIngredients.getItem());
+        assertEquals("raw chicken", testIngredients.getItem());
         assertEquals(500, testIngredients.getQuantity());
+        assertEquals("g", testIngredients.getUnit());
     }
 
 
     @Test
     void testGetItem() {
-        testIngredients = new Ingredient("Eggs", 1000);
+        testIngredients = new Ingredient("Eggs", 3, Unit.whole);
         assertEquals("Eggs", testIngredients.getItem());
+    }
+
+    // TODO: instead of whole should it be smth else? bc it is an enum and not a string
+    @Test
+    void testGetUnit() {
+        testIngredients = new Ingredient("Eggs", 3, Unit.whole);
+        assertEquals("whole", testIngredients.getUnit());
     }
 
     @Test
     void testAddOnceQuantity() {
-        testIngredients = new Ingredient("Tomatoes", 400);
+        testIngredients = new Ingredient("Tomatoes", 400, Unit.g);
         assertEquals(400, testIngredients.getQuantity());
         testIngredients.addQuantity(52.5);
         assertEquals(452.5, testIngredients.getQuantity());
@@ -90,19 +99,19 @@ public class IngredientTest {
 
     @Test
     void testUpdateAfterAdding() {
-        testIngredients = new Ingredient("Kimchi", 1200);
+        testIngredients = new Ingredient("kimchi", 1200, Unit.g);
         testIngredients.addQuantity(50);
-        assertTrue(testIngredients.updateIngredients().contains(" item = Kimchi, quantity = 1250"));
+        assertTrue(testIngredients.updateIngredients().contains(" item = kimchi, quantity = 1250g"));
     }
 
     @Test
     void testUpdateAfterRemoving() {
         testIngredients.reduceQuantity(100);
-        assertTrue(testIngredients.updateIngredients().contains(" item = Raw Chicken, quantity = 400"));
+        assertTrue(testIngredients.updateIngredients().contains(" item = raw chicken, quantity = 400g"));
     }
 
     @Test
     void testUpdateWithoutChanging() {
-        assertTrue(testIngredients.updateIngredients().contains(" item = Raw Chicken, quantity = 500"));
+        assertTrue(testIngredients.updateIngredients().contains(" item = raw chicken, quantity = 500g"));
     }
 }

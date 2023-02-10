@@ -4,8 +4,6 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 // Represents a fridge having a list of ingredients that are available
-// TODO: check when the amount of ingredients =0, I want to remove it from the list of ingredients
-//  but do I put state that if statement in the fridge or ingredients class
 public class Fridge {
     ArrayList<Ingredient> ingredientList;
 
@@ -19,32 +17,34 @@ public class Fridge {
     // unless if there is already that ingredient, then add the amount
     public void addIngredient(Ingredient item) {
         for (Ingredient i : ingredientList) {
-            if (i.getItem().equals(item)) {
-                i.addQuantity(i.getQuantity());
+            if (i.getItem().equals(item.getItem())) {
+                i.addQuantity(item.getQuantity());
             }
-            ingredientList.add(item);
         }
+        ingredientList.add(item);
     }
 
     // REQUIRES: amountNeeded > 0 and amount >= amount - amountNeeded, item already in the list
     // MODIFIES: this
     // EFFECTS: decrease the amount of an ingredient by amount = amount - amountNeeded
     // unless if amount = 0, then remove ingredient
-    public String removeOrReduceIngredient(Ingredient item, double amountNeeded) {
-        // TODO: deduct amountNeeded of ingredients from amount
-        // TODO: if amount = 0, remove ingredient, else do nothing
+    public void removeOrReduceIngredient(Ingredient item, double amountNeeded) {
         for (Ingredient i : ingredientList) {
             int counter = 1;
-            if (i.getItem().equals(item)) {
+            if (i.getItem().equals(item.getItem())) {
                 if (i.reduceQuantity(amountNeeded) == 0) {
                     ingredientList.remove(counter);
+                    counter--;
                 }
-                i.reduceQuantity(amountNeeded);
+               // i.reduceQuantity(amountNeeded); This repeats the reduction
             } else {
                 counter++;
             }
         }
-        return "No ingredient was reduced!";
+    }
+
+    public double getIngredientAmount(Ingredient i) {
+        return i.getQuantity();
     }
 
     public ArrayList<Ingredient> getIngredients() {

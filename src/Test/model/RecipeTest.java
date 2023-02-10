@@ -1,8 +1,5 @@
 package model;
 
-import model.Ingredient;
-import model.Recipe;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,28 +19,26 @@ public class RecipeTest {
     private ArrayList<Ingredient> IngredientList = new ArrayList<>();
 
     @BeforeEach
-    // TODO: add a list of ingredients
     void setUp() {
-        testRecipe = new Recipe();
-        i1 = new Ingredient("rice", 1000);
-        i2 = new Ingredient("kimchi", 500);
-        i3 = new Ingredient ("egg", 1000);
-        i4 = new Ingredient("garlic", 100);
-        i5 = new Ingredient("sesame seed", 15);
-        i6 = new Ingredient("seaweed", 50);
-        i7 = new Ingredient("oyster sauce", 10);
+        i1 = new Ingredient("rice", 1000,Unit.g);
+        i2 = new Ingredient("kimchi", 500, Unit.g);
+        i3 = new Ingredient ("egg", 1000, Unit.whole);
+        i4 = new Ingredient("garlic", 0.5, Unit.whole);
+        i5 = new Ingredient("sesame seed", 10, Unit.g);
+        i6 = new Ingredient("seaweed", 50, Unit.g);
+        i7 = new Ingredient("oyster sauce", 1, Unit.tbsp);
 
         IngredientList.add(i1);
         IngredientList.add(i2);
         IngredientList.add(i3);
         IngredientList.add(i4);
         IngredientList.add(i5);
+        testRecipe = new Recipe(1, "kimchi fried rice", 'C', 0, IngredientList);
     }
 
     @Test
     void testConstructor() {
-        testRecipe.makeRecipe(2, "kimchi fried rice", 'C', IngredientList);
-        assertEquals(2, testRecipe.getID());
+        assertEquals(1, testRecipe.getID());
         assertEquals("kimchi fried rice", testRecipe.getName());
         assertEquals('C', testRecipe.getType());
         assertEquals(0, testRecipe.getRatings());
@@ -107,7 +102,7 @@ public class RecipeTest {
 
     @Test
     void testGetID() {
-        assertEquals(2, testRecipe.getID());
+        assertEquals(1, testRecipe.getID());
     }
 
     @Test
