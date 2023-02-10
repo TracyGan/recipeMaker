@@ -33,7 +33,7 @@ public class IngredientTest {
     @Test
     void testGetUnit() {
         testIngredients = new Ingredient("Eggs", 3, Unit.whole);
-        assertEquals("whole", testIngredients.getUnit());
+        assertEquals(Unit.whole, testIngredients.getUnit());
     }
 
     @Test

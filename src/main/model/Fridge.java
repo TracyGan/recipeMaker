@@ -24,19 +24,29 @@ public class Fridge {
         ingredientList.add(item);
     }
 
+    // EFFECTS: returns ingredient in list with that name
+    public Ingredient getIngredient(String item) {
+        for (Ingredient i : ingredientList) {
+            if (i.getItem() == item) {
+                return i;
+            }
+        }
+        return null;
+    }
+
     // REQUIRES: amountNeeded > 0 and amount >= amount - amountNeeded, item already in the list
     // MODIFIES: this
     // EFFECTS: decrease the amount of an ingredient by amount = amount - amountNeeded
     // unless if amount = 0, then remove ingredient
     public void removeOrReduceIngredient(Ingredient item, double amountNeeded) {
+        int counter = 1;
         for (Ingredient i : ingredientList) {
-            int counter = 1;
-            if (i.getItem().equals(item.getItem())) {
+            if (i.getItem().equals(item)) {
                 if (i.reduceQuantity(amountNeeded) == 0) {
                     ingredientList.remove(counter);
                     counter--;
                 }
-               // i.reduceQuantity(amountNeeded); This repeats the reduction
+                i.reduceQuantity(amountNeeded);
             } else {
                 counter++;
             }

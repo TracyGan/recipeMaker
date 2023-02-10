@@ -2,7 +2,9 @@ package ui;
 
 import model.*;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 // Recipe maker application
@@ -84,7 +86,7 @@ public class RecipeApp {
         fridge = new Fridge();
         i1 = new Ingredient("rice", 1000, Unit.g);
         i2 = new Ingredient("kimchi", 500, Unit.g);
-        i3 = new Ingredient ("egg", 10, Unit.whole);
+        i3 = new Ingredient("egg", 10, Unit.whole);
         i4 = new Ingredient("garlic", 1, Unit.whole);
         i5 = new Ingredient("sesame seed", 100, Unit.g);
         i6 = new Ingredient("olive oil", 2000, Unit.ml);
@@ -94,7 +96,7 @@ public class RecipeApp {
         i10 = new Ingredient("pineapple", 1, Unit.cups);
         i11 = new Ingredient("cashews", 0.5, Unit.cups);
         i12 = new Ingredient("soy sauce", 2, Unit.tbsp);
-        i13= new Ingredient("curry powder", 2, Unit.tbsp);
+        i13 = new Ingredient("curry powder", 2, Unit.tbsp);
         i14 = new Ingredient("cilantro", 0.5, Unit.whole);
         i15 = new Ingredient("tomato", 3, Unit.whole);
         i16 = new Ingredient("lentil", 100, Unit.g);
@@ -170,9 +172,9 @@ public class RecipeApp {
         ingredientList4.add(i12);
         ingredientList4.add(i14);
 
-        rPesc = new Recipe(1, "kimchi fried rice", 'C', 3,ingredientList1);
+        rPesc = new Recipe(1, "kimchi fried rice", 'C', 3, ingredientList1);
         rVegan = new Recipe(2, "pineapple vegan fried rice",
-                'B', 5,ingredientList2);
+                'B', 5, ingredientList2);
         rVeg = new Recipe(3, "vegetarian meatballs",
                 'A', 5, ingredientList3);
         rOmni = new Recipe(4, "ginger beef stir fry",
@@ -191,21 +193,65 @@ public class RecipeApp {
         System.out.println("\t E -> Quit");
     }
 
+
     // TODO: How to loop 'Do you want to enter ingredients:'
     // ans can be either yes or no
     // TODO: if yes, then allows you to enter ingredients
     // if no, then finds a vegetarian recipe. if there is one, then prints recipe
     // if not then prints "No recipe available with ingredients in fridge!"
     private void findVegetarian() {
+        Recipe rep = selectRecipe();
+        String n = "";
+        while (!Objects.equals(n, "C")) {
+            System.out.println("Do you want to enter ingredients?");
+            System.out.println("A -> Yes");
+            System.out.println("B -> No");
+            System.out.println("C -> Quit");
+            n = input.nextLine();
+            if (Objects.equals(n, "A")) {
+                System.out.println("Enter ingredient you want to add:");
+                n = input.nextLine();
+            }
+            if (Objects.equals(n, "B")) {
+                removeIngredient();
+                break;
+            }
+            printRecipe(rVeg);
+        }
+        displayMenu();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: reduces or removes an ingredient from fridge
+    private void removeIngredient() {
+        String s = "";
         Recipe selected = selectRecipe();
-        System.out.println("Do you want to enter ingredients?");
-        System.out.println("A -> Yes");
-        System.out.println("B -> No");
-        System.out.println("C -> Quit");
-        String ingredient = input.nextLine();
-
-
-        printRecipe(selected);
+        while (!Objects.equals(s, "C")) {
+            System.out.println("Do you want to reduce ingredients?");
+            System.out.println("A -> Yes");
+            System.out.println("B -> No");
+            System.out.println("C -> Quit");
+            s = input.nextLine();
+            if (Objects.equals(s, "A")) {
+                System.out.println("Enter ingredient you want to reduce:");
+                String i = input.nextLine();
+                Ingredient in = fridge.getIngredient(i);
+                System.out.println("Enter quantity of ingredient you want to reduce:");
+                double amount = input.nextDouble();
+                if (amount < 0.0) {
+                    System.out.println("Cannot reduce negative value...");
+                } else if (selected.getIngredientAmount(in) < amount) {
+                    System.out.println("Insufficient amount in fridge...");
+                } else {
+                    fridge.removeOrReduceIngredient(in, amount);
+                }
+            }
+            if (Objects.equals(s, "B")) {
+                System.out.println(selected);
+                break;
+            }
+            break;
+        }
     }
 
     private void findVegan() {
@@ -226,8 +272,8 @@ public class RecipeApp {
     private Recipe selectRecipe() {
         String selection = ""; // force entry into loop
 
-        while (!(selection.equals("A") || (selection.equals("B") ||
-                (selection.equals("D") || (selection.equals("E")))))) {
+        while (!(selection.equals("A") || (selection.equals("B")
+                || (selection.equals("D") || (selection.equals("E")))))) {
             System.out.println("A for Vegetarian");
             System.out.println("B for Vegan");
             System.out.println("C for Pescatrian");
@@ -241,19 +287,20 @@ public class RecipeApp {
         } else if (selection.equals("B")) {
             return rVegan;
         } else if (selection.equals("C")) {
-            return rpesc;
+            return rPesc;
         } else if (selection.equals("D")) {
             return rOmni;
         }
-
-
-        private void printRecipe (Recipe selected){
-            System.out.println("Recipes available: ", selected.giveRecipe());
-        }
+        return null;
     }
 
-        public void endProgram() {
-            System.out.println("Quitting...");
-            input.close();
-        }
+
+    private void printRecipe(Recipe selected) {
+        System.out.printf("Recipe available: ", selected.giveRecipe());
+    }
+
+    public void endProgram() {
+        System.out.println("Quitting...");
+        input.close();
+    }
 }

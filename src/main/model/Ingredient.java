@@ -37,13 +37,12 @@ public class Ingredient {
         return quantity;
     }
 
-
     // REQUIRES: amount >= 0 and amount <= getQuantity()
     // MODIFIES: this
     // EFFECTS: amount of ingredients is removed from quantity and updated amount is returned
     public double reduceQuantity(double amount) {
         this.quantity = quantity - amount;
-        return this.quantity;
+        return quantity;
     }
 
     // EFFECTS: returns a string to indicate what ingredient is left and

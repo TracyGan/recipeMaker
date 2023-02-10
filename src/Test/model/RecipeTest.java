@@ -73,14 +73,15 @@ public class RecipeTest {
 
     @Test
     void testGiveRecipe() {
-        assertTrue(testRecipe.giveRecipe().contains(" ID = 1, Name = Kimchi Fried Rice, " +
-                "Type = C, Ratings = 0, Ingredients : "));
+        assertTrue(testRecipe.giveRecipe().contains("[ ID = 1, Name = Kimchi Fried Rice, " +
+                "Type = C, Ratings = 0, Ingredients : ]"));
     }
 
     @Test
     void testGiveRecipeAfterRating() {
         testRecipe.increaseRating(5);
-        assertTrue(testRecipe.giveRecipe().contains(" ID = 1, Name = Kimchi Fried Rice, " +
+        System.out.println(testRecipe.giveRecipe());
+        assertTrue(testRecipe.giveRecipe().contains(" ID = 1, Name = kimchi fried rice, " +
                 "Type = C, Ratings = 5, Ingredients : "));
     }
 

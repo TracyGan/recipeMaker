@@ -75,5 +75,8 @@ public class Recipe {
         ingredientList.add(i);
     }
 
-
+    // EFFECTS: returns the amount of that ingredient
+    public double getIngredientAmount(Ingredient i) {
+        return i.getQuantity();
+    }
 }
