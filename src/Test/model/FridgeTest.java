@@ -102,7 +102,6 @@ public class FridgeTest {
         assertEquals(300, testFridge.getIngredientAmount(ingredient2));
     }
 
-    // TODO: check to remove ingredient entirely
     @Test
     void testRemoveOneIngredientEntirely() {
         testFridge.addIngredient(ingredient2);
@@ -134,6 +133,18 @@ public class FridgeTest {
     @Test
     void testCheckEmpty1() {
         assertTrue(testFridge.checkIsEmpty());
+    }
+
+    @Test
+    void testGetIngredient() {
+        testFridge.addIngredient(ingredient4);
+        assertEquals(ingredient4, testFridge.getIngredient("garlic"));
+    }
+
+    @Test
+    void testGetIngredient1() {
+        testFridge.addIngredient(ingredient4);
+        assertEquals(null, testFridge.getIngredient("rice"));
     }
 
 }

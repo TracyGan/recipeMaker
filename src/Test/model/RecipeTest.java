@@ -2,9 +2,9 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.CollectionUtils;
 
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeTest {
@@ -16,7 +16,7 @@ public class RecipeTest {
     private Ingredient i5;
     private Ingredient i6;
     private Ingredient i7;
-    private ArrayList<Ingredient> IngredientList = new ArrayList<>();
+    private Ingredient i8;
 
     @BeforeEach
     void setUp() {
@@ -27,12 +27,16 @@ public class RecipeTest {
         i5 = new Ingredient("sesame seed", 10, Unit.g);
         i6 = new Ingredient("seaweed", 50, Unit.g);
         i7 = new Ingredient("oyster sauce", 1, Unit.tbsp);
+        i8 = new Ingredient("salt", 1, Unit.tsp);
 
+        ArrayList<Ingredient> IngredientList = new ArrayList<>();
         IngredientList.add(i1);
         IngredientList.add(i2);
         IngredientList.add(i3);
         IngredientList.add(i4);
         IngredientList.add(i5);
+        IngredientList.add(i6);
+        IngredientList.add(i7);
         testRecipe = new Recipe(1, "kimchi fried rice", 'C', 0, IngredientList);
     }
 
@@ -73,16 +77,20 @@ public class RecipeTest {
 
     @Test
     void testGiveRecipe() {
-        assertTrue(testRecipe.giveRecipe().contains("[ ID = 1, Name = Kimchi Fried Rice, " +
-                "Type = C, Ratings = 0, Ingredients : ]"));
+        assertEquals(1, testRecipe.getID());
+        assertEquals("kimchi fried rice", testRecipe.getName());
+        assertEquals('C', testRecipe.getType());
+        assertEquals(0, testRecipe.getRatings());
+        System.out.println(testRecipe.getIngredients());
     }
 
     @Test
     void testGiveRecipeAfterRating() {
         testRecipe.increaseRating(5);
-        System.out.println(testRecipe.giveRecipe());
-        assertTrue(testRecipe.giveRecipe().contains(" ID = 1, Name = kimchi fried rice, " +
-                "Type = C, Ratings = 5, Ingredients : "));
+        assertEquals(1, testRecipe.getID());
+        assertEquals("kimchi fried rice", testRecipe.getName());
+        assertEquals('C', testRecipe.getType());
+        assertEquals(5, testRecipe.getRatings());
     }
 
     @Test
@@ -92,7 +100,7 @@ public class RecipeTest {
     }
 
     @Test
-    void testGetRecipe() {
+    void testGetType() {
         assertEquals('C', testRecipe.getType());
     }
 
@@ -114,6 +122,50 @@ public class RecipeTest {
     @Test
     void testGetTried() {
         assertFalse(testRecipe.getTried());
+    }
+
+    @Test
+    void testGetIngredients() {
+        ArrayList<Ingredient> ingredientListCheck = new ArrayList<>();
+        ingredientListCheck.add(i1);
+        ingredientListCheck.add(i2);
+        ingredientListCheck.add(i3);
+        ingredientListCheck.add(i4);
+        ingredientListCheck.add(i5);
+        ingredientListCheck.add(i6);
+        ingredientListCheck.add(i7);
+        assertTrue(testRecipe.getIngredients().equals(ingredientListCheck));
+    }
+
+    @Test
+    void testGetRecipe() {
+        assertTrue(testRecipe.getRecipe().contains("ID = 1, Name = kimchi fried rice, " +
+                "Type = C, Rating = 0, Ingredients : "));
+    }
+
+    @Test
+    void testAddIngredient() {
+        testRecipe.addIngredient(i8);
+        ArrayList<Ingredient> ingredientListCheck = new ArrayList<>();
+        ingredientListCheck.add(i1);
+        ingredientListCheck.add(i2);
+        ingredientListCheck.add(i3);
+        ingredientListCheck.add(i4);
+        ingredientListCheck.add(i5);
+        ingredientListCheck.add(i6);
+        ingredientListCheck.add(i7);
+        assertFalse(testRecipe.getIngredients().contains(ingredientListCheck));
+    }
+
+    @Test
+    void testGetIngredientAmount() {
+        assertEquals(1000, testRecipe.getIngredientAmount(i1));
+    }
+
+    @Test
+    void testGetMoreIngredientAmount() {
+        assertEquals(1000, testRecipe.getIngredientAmount(i1));
+        assertEquals(0.5, testRecipe.getIngredientAmount(i4));
     }
 
 }

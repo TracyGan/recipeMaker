@@ -1,9 +1,5 @@
 package model;
 
-import model.Ingredient;
-import model.Recipe;
-import model.RecipeBook;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -60,8 +56,13 @@ public class RecipeBookTest {
         ingredientList1.add(i10);
         ingredientList1.add(i11);
 
+        ArrayList<Ingredient> ingredientList2 = new ArrayList<>();
+        ingredientList.add(i1);
+        ingredientList1.add(i11);
+
         r1 = new Recipe(1, "kimchi fried rice", 'C', 3, ingredientList);
         r2 = new Recipe(2, "kimchi pancake", 'C', 1, ingredientList1);
+        r3 = new Recipe(3, "stir fried kimchi", 'C', 1, ingredientList2);
     }
 
     @Test
@@ -72,31 +73,102 @@ public class RecipeBookTest {
     @Test
     void testAddOneRecipe() {
         testRecipeBook.addRecipes(r1);
-        assertTrue(testRecipeBook.checkRecipe(r1));
+        assertTrue(testRecipeBook.containsRecipe(r1));
     }
 
     @Test
     void testAddTwoRecipe() {
         testRecipeBook.addRecipes(r1);
-        assertTrue(testRecipeBook.checkRecipe(r1));
+        assertTrue(testRecipeBook.containsRecipe(r1));
         testRecipeBook.addRecipes(r2);
-        assertTrue(testRecipeBook.checkRecipe(r2));
+        assertTrue(testRecipeBook.containsRecipe(r2));
     }
 
     @Test
     void testRemoveNoRecipe() {
         testRecipeBook.addRecipes(r1);
-        assertTrue(testRecipeBook.checkRecipe(r1));
-        testRecipeBook.removeRecipes(r1);
+        assertTrue(testRecipeBook.containsRecipe(r1));
+        testRecipeBook.removeRecipes();
         assertFalse(testRecipeBook.isEmpty());
+        assertTrue(testRecipeBook.containsRecipe(r1));
+    }
+
+    @Test
+    void testRemoveTwoRecipe() {
+        testRecipeBook.addRecipes(r2);
+        testRecipeBook.addRecipes(r3);
+        testRecipeBook.removeRecipes();
+        assertTrue(testRecipeBook.isEmpty());
+        assertFalse(testRecipeBook.containsRecipe(r2));
+        assertFalse(testRecipeBook.containsRecipe(r3));
     }
 
     @Test
     void testRemoveRecipe() {
         testRecipeBook.addRecipes(r2);
-        assertTrue(testRecipeBook.checkRecipe(r2));
-        testRecipeBook.removeRecipes(r2);
+        assertTrue(testRecipeBook.containsRecipe(r2));
+        testRecipeBook.removeRecipes();
+        assertTrue(testRecipeBook.isEmpty());
+        assertFalse(testRecipeBook.containsRecipe(r2));
+    }
+
+    @Test
+    void testCheckRecipe() {
+        testRecipeBook.addRecipes(r2);
+        assertTrue(testRecipeBook.containsRecipe(r2));
+    }
+
+    @Test
+    void testCheckNoRecipe() {
+        assertFalse(testRecipeBook.containsRecipe(r1));
+    }
+
+    @Test
+    void testCheckNoRecipeAfterAdding() {
+        testRecipeBook.addRecipes(r1);
+        assertFalse(testRecipeBook.containsRecipe(r2));
+    }
+
+    @Test
+    void testNumZeroRecipe() {
+        assertEquals(0, testRecipeBook.numRecipes());
+    }
+
+    @Test
+    void testNumOneRecipe() {
+        testRecipeBook.addRecipes(r2);
+        assertEquals(1, testRecipeBook.numRecipes());
+    }
+
+    @Test
+    void testMoreThanOneRecipe() {
+        testRecipeBook.addRecipes(r2);
+        testRecipeBook.addRecipes(r1);
+        assertEquals(2, testRecipeBook.numRecipes());
+    }
+
+    @Test
+    void testCheckEmpty() {
         assertTrue(testRecipeBook.isEmpty());
     }
 
+    @Test
+    void testCheckNotEmpty() {
+        testRecipeBook.addRecipes(r1);
+        assertFalse(testRecipeBook.isEmpty());
+    }
+
+    @Test
+    void testCheckRecipeThere() {
+        testRecipeBook.addRecipes(r1);
+        assertTrue(testRecipeBook.containsRecipe(r1));
+    }
+
+    @Test
+    void testCheckMoreThanOneRecipe() {
+        testRecipeBook.addRecipes(r2);
+        testRecipeBook.addRecipes(r1);
+        assertTrue(testRecipeBook.containsRecipe(r2));
+        assertTrue(testRecipeBook.containsRecipe(r1));
+    }
 }

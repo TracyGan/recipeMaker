@@ -64,9 +64,10 @@ public class Recipe {
         return ratings;
     }
 
-    public String giveRecipe() {
-        return "[ ID = " + id + ", " + "Name = " + name + ", " + "Type = " + type + ", "
-                + "Ratings = " + ratings + ", " + "Ingredients : " + ingredientList + "]";
+    // EFFECTS: returns
+    public String getRecipe() {
+        return "ID = " + id + ", Name = " + name + ", Type = " + type
+                + ", Rating = " + ratings + ", Ingredients : " + ingredientList;
     }
 
     // MODIFIES: this

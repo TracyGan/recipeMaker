@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 // Represents a recipe book containing a list of recipes that
 // I can make with ingredients in fridge
@@ -23,13 +24,13 @@ public class RecipeBook {
 
     // MODIFIES: this
     // EFFECTS: remove the recipe from the recipe book if rating = 1
-    public void removeRecipes(Recipe recipe) {
-        int counter = 1;
-        for (Recipe rep : recipeList) {
-            if (rep.getRatings() == 1) {
-                recipeList.remove(counter);
+    public void removeRecipes() {
+        ListIterator<Recipe> iter = recipeList.listIterator();
+        while (iter.hasNext()) {
+            Recipe element = iter.next();
+            if (element.getRatings() == 1) {
+                iter.remove();
             }
-            counter++;
         }
     }
 
@@ -39,7 +40,7 @@ public class RecipeBook {
     }
 
     // EFFECTS: returns true if recipe is in RecipeBook
-    public boolean checkRecipe(Recipe r) {
+    public boolean containsRecipe(Recipe r) {
         if (recipeList.contains(r)) {
             return true;
         }

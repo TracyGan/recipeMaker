@@ -22,11 +22,11 @@ public class Ingredient {
     }
 
     public double getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 
     public Unit getUnit() {
-        return unit;
+        return this.unit;
     }
 
     // REQUIRES: amount > 0
@@ -41,14 +41,8 @@ public class Ingredient {
     // MODIFIES: this
     // EFFECTS: amount of ingredients is removed from quantity and updated amount is returned
     public double reduceQuantity(double amount) {
-        this.quantity = quantity - amount;
+        this.quantity = this.quantity - amount;
         return quantity;
-    }
-
-    // EFFECTS: returns a string to indicate what ingredient is left and
-    // the quantity of that ingredient (in grams)
-    public String updateIngredients() {
-        return " item = " + item + "," + " quantity = " + quantity + unit;
     }
 
 

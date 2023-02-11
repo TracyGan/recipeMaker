@@ -2,6 +2,9 @@ package model;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
+
 
 // Represents a fridge having a list of ingredients that are available
 public class Fridge {
@@ -39,16 +42,13 @@ public class Fridge {
     // EFFECTS: decrease the amount of an ingredient by amount = amount - amountNeeded
     // unless if amount = 0, then remove ingredient
     public void removeOrReduceIngredient(Ingredient item, double amountNeeded) {
-        int counter = 1;
-        for (Ingredient i : ingredientList) {
-            if (i.getItem().equals(item)) {
-                if (i.reduceQuantity(amountNeeded) == 0) {
-                    ingredientList.remove(counter);
-                    counter--;
+        ListIterator<Ingredient> iter = ingredientList.listIterator();
+        while (iter.hasNext()) {
+            Ingredient element = iter.next();
+            if (element.getItem().equals(item.getItem())) {
+                if (element.reduceQuantity(amountNeeded) == 0) {
+                    iter.remove();
                 }
-                i.reduceQuantity(amountNeeded);
-            } else {
-                counter++;
             }
         }
     }

@@ -19,7 +19,7 @@ public class IngredientTest {
     void testConstructor() {
         assertEquals("raw chicken", testIngredients.getItem());
         assertEquals(500, testIngredients.getQuantity());
-        assertEquals("g", testIngredients.getUnit());
+        assertEquals(Unit.g, testIngredients.getUnit());
     }
 
 
@@ -29,11 +29,9 @@ public class IngredientTest {
         assertEquals("Eggs", testIngredients.getItem());
     }
 
-    // TODO: instead of whole should it be smth else? bc it is an enum and not a string
     @Test
     void testGetUnit() {
-        testIngredients = new Ingredient("Eggs", 3, Unit.whole);
-        assertEquals(Unit.whole, testIngredients.getUnit());
+        assertEquals(Unit.g, testIngredients.getUnit());
     }
 
     @Test
@@ -94,24 +92,5 @@ public class IngredientTest {
         assertEquals(700, testIngredients.getQuantity());
         testIngredients.reduceQuantity(100);
         assertEquals(600, testIngredients.getQuantity());
-    }
-
-
-    @Test
-    void testUpdateAfterAdding() {
-        testIngredients = new Ingredient("kimchi", 1200, Unit.g);
-        testIngredients.addQuantity(50);
-        assertTrue(testIngredients.updateIngredients().contains(" item = kimchi, quantity = 1250g"));
-    }
-
-    @Test
-    void testUpdateAfterRemoving() {
-        testIngredients.reduceQuantity(100);
-        assertTrue(testIngredients.updateIngredients().contains(" item = raw chicken, quantity = 400g"));
-    }
-
-    @Test
-    void testUpdateWithoutChanging() {
-        assertTrue(testIngredients.updateIngredients().contains(" item = raw chicken, quantity = 500g"));
     }
 }
