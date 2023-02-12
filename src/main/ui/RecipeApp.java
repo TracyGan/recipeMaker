@@ -2,9 +2,9 @@ package ui;
 
 import model.*;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
+
+import static javax.swing.UIManager.get;
 
 // Recipe maker application
 public class RecipeApp {
@@ -52,8 +52,8 @@ public class RecipeApp {
 
         while (keepGoing) {
             displayMenu();
-            command = input.next();
-            command = command.toLowerCase();
+            command = input.nextLine();
+            command = command.toUpperCase();
 
             if (command.equals("E")) {
                 keepGoing = false;
@@ -69,13 +69,13 @@ public class RecipeApp {
     // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("A")) {
-            findVegetarian();
+            findVegetarian("A");
         } else if (command.equals("B")) {
-            findVegan();
+            findVegan("B");
         } else if (command.equals("C")) {
-            findPescatarian();
+            findPescatarian("C");
         } else if (command.equals("D")) {
-            findOmnivores();
+            findOmnivores("D");
         } else {
             System.out.println("Selection is not valid! ");
         }
@@ -193,36 +193,39 @@ public class RecipeApp {
         System.out.println("\t E -> Quit");
     }
 
-
-    // TODO: How to loop 'Do you want to enter ingredients:'
-    // ans can be either yes or no
-    // TODO: if yes, then allows you to enter ingredients
-    // if no, then finds a vegetarian recipe. if there is one, then prints recipe
-    // if not then prints "No recipe available with ingredients in fridge!"
-    private void findVegetarian() {
-        findMethod();
+    // MODIFIES: this
+    // EFFECTS: returns a vegetarian recipe, after updating ingredients in fridge
+    private void findVegetarian(String s) {
+        findMethod(s);
         printRecipe(repVeg);
     }
 
-    private void findVegan() {
-        findMethod();
+    // MODIFIES: this
+    // EFFECTS: returns a vegan recipe, after updating ingredients in fridge
+    private void findVegan(String s) {
+        findMethod(s);
         printRecipe(repVegan);
     }
 
-    private void findPescatarian() {
-        findMethod();
+    // MODIFIES: this
+    // EFFECTS: returns a pescatarian recipe, after updating ingredients in fridge
+    private void findPescatarian(String s) {
+        findMethod(s);
         printRecipe(repPesc);
     }
 
-    private void findOmnivores() {
-        findMethod();
+    // MODIFIES: this
+    // EFFECTS: returns an omnivore recipe, after updating ingredients in fridge
+    private void findOmnivores(String s) {
+        findMethod(s);
         printRecipe(repOmni);
     }
 
-    private void findMethod() {
-        Recipe rep = selectRecipe();
-        String s = "";
-        while (!Objects.equals(s, "C")) {
+    @SuppressWarnings("methodlength")
+    // EFFECTS: prompts user to add or reduce ingredients available in fridge
+    private void findMethod(String s) {
+        Recipe rep = selectRecipe(s);
+        while (!Objects.equals(s, "E")) {
             System.out.println("Do you want to enter ingredients?");
             System.out.println("A -> Yes");
             System.out.println("B -> No");
@@ -231,13 +234,19 @@ public class RecipeApp {
             if (Objects.equals(s, "A")) {
                 System.out.println("Enter ingredient you want to add:");
                 s = input.nextLine();
+                System.out.println("Enter the amount of ingredient you want to add:");
+                double n = input.nextDouble();
+                System.out.println("Enter the units of ingredient you want to add:");
+                Unit l = Unit.valueOf(input.next().toLowerCase());
+                Ingredient i = new Ingredient(s, n, l);
+                fridge.addIngredient(i);
+                input.nextLine();
             }
             if (Objects.equals(s, "B")) {
-                removeIngredient();
+                removeIngredient(rep);
                 break;
             }
         }
-        printRecipe(rep);
     }
 
 
@@ -245,9 +254,8 @@ public class RecipeApp {
     @SuppressWarnings("methodlength")
     // MODIFIES: this
     // EFFECTS: reduces or removes an ingredient from fridge
-    private void removeIngredient() {
+    private void removeIngredient(Recipe selected) {
         String s = "";
-        Recipe selected = selectRecipe();
         while (!Objects.equals(s, "C")) {
             System.out.println("Do you want to reduce ingredients?");
             System.out.println("A -> Yes");
@@ -260,10 +268,15 @@ public class RecipeApp {
                 Ingredient in = fridge.getIngredient(i);
                 System.out.println("Enter quantity of ingredient you want to reduce:");
                 double amount = input.nextDouble();
+                System.out.println("Enter the units of ingredient you want to remove:");
+                Unit l = Unit.valueOf(input.next().toLowerCase());
+                input.nextLine();
                 if (amount < 0.0) {
                     System.out.println("Cannot reduce negative value...");
+                    break;
                 } else if (selected.getIngredientAmount(in) < amount) {
                     System.out.println("Insufficient amount in fridge...");
+                    break;
                 } else {
                     fridge.removeOrReduceIngredient(in, amount);
                 }
@@ -274,12 +287,20 @@ public class RecipeApp {
             }
             break;
         }
+        printFridge();
+        printRecipe(selected);
+    }
+
+    private void printFridge() {
+        System.out.println("Items in fridge:");
+        for (int i = 0; i < fridge.getSize(); i++) {
+            System.out.println(fridge.getItem(i).returnIngredient());
+        }
     }
 
 
     // EFFECTS: prompts user to select vegetarian, vegan, pescatarian or omnivores and return it
-    private Recipe selectRecipe() {
-        String selection = "";
+    private Recipe selectRecipe(String selection) {
 
         while (!(selection.equals("A") || (selection.equals("B")
                 || (selection.equals("C") || (selection.equals("D")))))) {
@@ -287,7 +308,7 @@ public class RecipeApp {
             System.out.println("B for Vegan");
             System.out.println("C for Pescatrian");
             System.out.println("D for Omnivores");
-            selection = input.next();
+            selection = input.nextLine();
             selection = selection.toUpperCase();
         }
 

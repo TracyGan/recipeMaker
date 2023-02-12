@@ -93,4 +93,9 @@ public class IngredientTest {
         testIngredients.reduceQuantity(100);
         assertEquals(600, testIngredients.getQuantity());
     }
+
+    @Test
+    void testReturnIngredient() {
+         assertTrue(testIngredients.returnIngredient().contains("Item = raw chicken ,Quantity = 500.0 g"));
+    }
 }

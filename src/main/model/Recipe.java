@@ -64,7 +64,7 @@ public class Recipe {
         return ratings;
     }
 
-    // EFFECTS: returns
+    // EFFECTS: returns the recipe's id, name, type, rating and ingredients
     public String getRecipe() {
         return "ID = " + id + ", Name = " + name + ", Type = " + type
                 + ", Rating = " + ratings + ", Ingredients : " + ingredientList;

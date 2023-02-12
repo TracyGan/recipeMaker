@@ -45,6 +45,11 @@ public class Ingredient {
         return quantity;
     }
 
+    // EFFECTS: returns ingredient name, quantity and unit
+    public String returnIngredient() {
+        return "Item = " + item + " ,Quantity = " + quantity + " " + unit;
+    }
+
 
 }
 

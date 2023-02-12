@@ -30,7 +30,7 @@ public class Fridge {
     // EFFECTS: returns ingredient in list with that name
     public Ingredient getIngredient(String item) {
         for (Ingredient i : ingredientList) {
-            if (i.getItem() == item) {
+            if ((i.getItem()).equals(item)) {
                 return i;
             }
         }
@@ -75,6 +75,16 @@ public class Fridge {
             return true;
         }
         return false;
+    }
+
+    // EFFECTS: returns the number of ingredients in the fridge
+    public int getSize() {
+        return ingredientList.size();
+    }
+
+    // EFFECTS: returns the ingredient with that index number
+    public Ingredient getItem(int n) {
+        return ingredientList.get(n);
     }
 
 }

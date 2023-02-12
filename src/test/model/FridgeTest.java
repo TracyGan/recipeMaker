@@ -147,4 +147,31 @@ public class FridgeTest {
         assertEquals(null, testFridge.getIngredient("rice"));
     }
 
+    @Test
+    void testGetZeroSize() {
+        assertEquals(0, testFridge.getSize());
+    }
+
+    @Test
+    void testGetOneSize() {
+        testFridge.addIngredient(ingredient5);
+        assertEquals(1, testFridge.getSize());
+    }
+
+    @Test
+    void testGetMoreOneSize() {
+        testFridge.addIngredient(ingredient5);
+        testFridge.addIngredient(ingredient6);
+        testFridge.addIngredient(ingredient7);
+        testFridge.addIngredient(ingredient8);
+        assertEquals(4, testFridge.getSize());
+    }
+
+    @Test
+    void testGetItem() {
+        testFridge.addIngredient(ingredient5);
+        assertEquals(ingredient5, testFridge.getItem(0));
+    }
+
+
 }
