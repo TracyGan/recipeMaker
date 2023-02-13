@@ -1,11 +1,9 @@
 package model;
 
-import model.Unit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import model.Ingredient;
 
 public class IngredientTest {
     private Ingredient testIngredients;

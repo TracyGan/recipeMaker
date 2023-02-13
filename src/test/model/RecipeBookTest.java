@@ -2,10 +2,8 @@ package model;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
 
 public class RecipeBookTest {
     private RecipeBook testRecipeBook;

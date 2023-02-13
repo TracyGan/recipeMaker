@@ -6,7 +6,6 @@ import java.util.ListIterator;
 // Represents a recipe book containing a list of recipes that
 // I can make with ingredients in fridge
 public class RecipeBook {
-    private char type;
     private ArrayList<Recipe> recipeList;
 
     // EFFECTS: creates a recipe book containing a list of recipes available
@@ -15,14 +14,14 @@ public class RecipeBook {
         recipeList = new ArrayList<Recipe>();
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, recipeList
     // EFFECTS: adds the recipe into the recipe book if ingredients
     // in fridge match ingredients needed for the recipe, otherwise doesn't add the recipe
     public void addRecipes(Recipe recipe) {
         recipeList.add(recipe);
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, recipeList
     // EFFECTS: remove the recipe from the recipe book if rating = 1
     public void removeRecipes() {
         ListIterator<Recipe> iter = recipeList.listIterator();
@@ -47,7 +46,7 @@ public class RecipeBook {
         return false;
     }
 
-    // EFFECTS: checks if the RecipeBook is empty
+    // EFFECTS: returns true if the RecipeBook is empty
     public boolean isEmpty() {
         if (recipeList.isEmpty()) {
             return true;

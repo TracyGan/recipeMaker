@@ -1,8 +1,6 @@
 package model;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 
@@ -15,7 +13,7 @@ public class Fridge {
         ingredientList = new ArrayList<Ingredient>();
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, ingredient
     // EFFECTS: inserts an ingredient into the fridge,
     // unless if there is already that ingredient, then add the amount
     public void addIngredient(Ingredient item) {
@@ -38,7 +36,7 @@ public class Fridge {
     }
 
     // REQUIRES: amountNeeded > 0 and amount >= amount - amountNeeded, item already in the list
-    // MODIFIES: this
+    // MODIFIES: this, ingredient
     // EFFECTS: decrease the amount of an ingredient by amount = amount - amountNeeded
     // unless if amount = 0, then remove ingredient
     public void removeOrReduceIngredient(Ingredient item, double amountNeeded) {

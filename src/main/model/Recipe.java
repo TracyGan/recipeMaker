@@ -49,18 +49,18 @@ public class Recipe {
     }
 
     // REQUIRES: star > 0 and star + ratings <= 5
-    // MODIFIES: this
+    // MODIFIES: this, ratings
     // EFFECTS: star is added to the ratings and updated ratings is returned
     public int increaseRating(int star) {
-        ratings = ratings + star;
+        this.ratings = ratings + star;
         return ratings;
     }
 
     // REQUIRES: star > 0 and star < ratings and star - ratings > 0
-    // MODIFIES: this
+    // MODIFIES: this, ratings
     // EFFECTS: star is removed from the ratings and updated ratings is returned
     public int decreaseRating(int star) {
-        ratings = ratings - star;
+        this.ratings = ratings - star;
         return ratings;
     }
 
@@ -70,7 +70,7 @@ public class Recipe {
                 + ", Rating = " + ratings + ", Ingredients : " + ingredientList;
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, ingredientList
     // EFFECTS: adds an ingredient into list of ingredients needed for the recipe
     public void addIngredient(Ingredient i) {
         ingredientList.add(i);
