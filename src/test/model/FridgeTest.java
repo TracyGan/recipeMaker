@@ -41,6 +41,7 @@ public class FridgeTest {
     void testAddOneItem() {
         testFridge.addIngredient(ingredient1);
         assertTrue(testFridge.getIngredients().contains(ingredient1));
+        assertEquals(1, testFridge.getSize());
     }
 
     @Test
@@ -56,7 +57,7 @@ public class FridgeTest {
         testFridge.addIngredient(ingredient1);
         assertTrue(testFridge.getIngredients().contains(ingredient1));
         testFridge.addIngredient(ingredient7);
-        assertTrue(testFridge.getIngredients().contains(ingredient7));
+        assertEquals(1, testFridge.getSize());
     }
 
     @Test
@@ -164,7 +165,7 @@ public class FridgeTest {
         testFridge.addIngredient(ingredient6);
         testFridge.addIngredient(ingredient7);
         testFridge.addIngredient(ingredient8);
-        assertEquals(4, testFridge.getSize());
+        assertEquals(3, testFridge.getSize());
     }
 
     @Test

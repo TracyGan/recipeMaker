@@ -18,7 +18,7 @@ public class Ingredient {
     }
 
     public String getItem() {
-        return item;
+        return this.item;
     }
 
     public double getQuantity() {
@@ -41,7 +41,7 @@ public class Ingredient {
     // MODIFIES: this, quantity
     // EFFECTS: amount of ingredients is removed from quantity and updated amount is returned
     public double reduceQuantity(double amount) {
-        this.quantity = this.quantity - amount;
+        this.quantity = quantity - amount;
         return quantity;
     }
 
@@ -49,8 +49,6 @@ public class Ingredient {
     public String returnIngredient() {
         return "Item = " + item + " ,Quantity = " + quantity + " " + unit;
     }
-
-
 }
 
 

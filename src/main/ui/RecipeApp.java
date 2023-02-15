@@ -4,46 +4,22 @@ import model.*;
 
 import java.util.*;
 
-import static javax.swing.UIManager.get;
-
 // Recipe maker application
 public class RecipeApp {
     private Fridge fridge;
     private Scanner input;
-    private Ingredient i1;
-    private Ingredient i2;
-    private Ingredient i3;
-    private Ingredient i4;
-    private Ingredient i5;
-    private Ingredient i6;
-    private Ingredient i7;
-    private Ingredient i8;
-    private Ingredient i9;
-    private Ingredient i10;
-    private Ingredient i11;
-    private Ingredient i12;
-    private Ingredient i13;
-    private Ingredient i14;
-    private Ingredient i15;
-    private Ingredient i16;
-    private Ingredient i17;
-    private Ingredient i18;
-    private Ingredient i19;
-    private Ingredient i20;
-    private Ingredient i21;
-    private Ingredient i22;
-    private Ingredient i23;
-    private Ingredient i24;
-    private Ingredient i25;
     private Recipe repPesc;
     private Recipe repVeg;
     private Recipe repVegan;
     private Recipe repOmni;
 
+    // EFFECTS: runs the recipe application
     public RecipeApp() {
         runRecipe();
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user input
     private void runRecipe() {
         boolean keepGoing = true;
         String command = null;
@@ -84,31 +60,31 @@ public class RecipeApp {
     @SuppressWarnings("methodlength")
     private void init() {
         fridge = new Fridge();
-        i1 = new Ingredient("rice", 1000, Unit.g);
-        i2 = new Ingredient("kimchi", 500, Unit.g);
-        i3 = new Ingredient("egg", 10, Unit.whole);
-        i4 = new Ingredient("garlic", 1, Unit.whole);
-        i5 = new Ingredient("sesame seed", 100, Unit.g);
-        i6 = new Ingredient("olive oil", 2000, Unit.ml);
-        i7 = new Ingredient("onion", 5, Unit.whole);
-        i8 = new Ingredient("carrot", 1, Unit.whole);
-        i9 = new Ingredient("peas", 200, Unit.g);
-        i10 = new Ingredient("pineapple", 1, Unit.cups);
-        i11 = new Ingredient("cashews", 0.5, Unit.cups);
-        i12 = new Ingredient("soy sauce", 2, Unit.tbsp);
-        i13 = new Ingredient("curry powder", 2, Unit.tbsp);
-        i14 = new Ingredient("cilantro", 0.5, Unit.whole);
-        i15 = new Ingredient("tomato", 3, Unit.whole);
-        i16 = new Ingredient("lentil", 100, Unit.g);
-        i17 = new Ingredient("mushroom", 15, Unit.whole);
-        i18 = new Ingredient("panko", 200, Unit.g);
-        i19 = new Ingredient("italian seasoning", 4, Unit.tsp);
-        i20 = new Ingredient("parmesan cheese", 100, Unit.g);
-        i21 = new Ingredient("basil", 2, Unit.whole);
-        i22 = new Ingredient("raw beef", 1, Unit.whole);
-        i23 = new Ingredient("honey", 1, Unit.tbsp);
-        i24 = new Ingredient("ginger", 1, Unit.whole);
-        i25 = new Ingredient("chili", 3, Unit.whole);
+        Ingredient i1 = new Ingredient("rice", 1000, Unit.g);
+        Ingredient i2 = new Ingredient("kimchi", 500, Unit.g);
+        Ingredient i3 = new Ingredient("egg", 10, Unit.whole);
+        Ingredient i4 = new Ingredient("garlic", 1, Unit.whole);
+        Ingredient i5 = new Ingredient("sesame seed", 100, Unit.g);
+        Ingredient i6 = new Ingredient("olive oil", 2000, Unit.ml);
+        Ingredient i7 = new Ingredient("onion", 5, Unit.whole);
+        Ingredient i8 = new Ingredient("carrot", 1, Unit.whole);
+        Ingredient i9 = new Ingredient("peas", 200, Unit.g);
+        Ingredient i10 = new Ingredient("pineapple", 1, Unit.cups);
+        Ingredient i11 = new Ingredient("cashews", 0.5, Unit.cups);
+        Ingredient i12 = new Ingredient("soy sauce", 2, Unit.tbsp);
+        Ingredient i13 = new Ingredient("curry powder", 2, Unit.tbsp);
+        Ingredient i14 = new Ingredient("cilantro", 0.5, Unit.whole);
+        Ingredient i15 = new Ingredient("tomato", 3, Unit.whole);
+        Ingredient i16 = new Ingredient("lentil", 100, Unit.g);
+        Ingredient i17 = new Ingredient("mushroom", 15, Unit.whole);
+        Ingredient i18 = new Ingredient("panko", 200, Unit.g);
+        Ingredient i19 = new Ingredient("italian seasoning", 4, Unit.tsp);
+        Ingredient i20 = new Ingredient("parmesan cheese", 100, Unit.g);
+        Ingredient i21 = new Ingredient("basil", 2, Unit.whole);
+        Ingredient i22 = new Ingredient("raw beef", 1, Unit.whole);
+        Ingredient i23 = new Ingredient("honey", 1, Unit.tbsp);
+        Ingredient i24 = new Ingredient("ginger", 1, Unit.whole);
+        Ingredient i25 = new Ingredient("chili", 3, Unit.whole);
         fridge.addIngredient(i1);
         fridge.addIngredient(i2);
         fridge.addIngredient(i3);
@@ -172,13 +148,13 @@ public class RecipeApp {
         ingredientList4.add(i12);
         ingredientList4.add(i14);
 
-        repPesc = new Recipe(1, "kimchi fried rice", 'C', 3, ingredientList1);
+        repPesc = new Recipe(1, "kimchi fried rice", 'C', 0, ingredientList1);
         repVegan = new Recipe(2, "pineapple vegan fried rice",
-                'B', 5, ingredientList2);
+                'B', 0, ingredientList2);
         repVeg = new Recipe(3, "vegetarian meatballs",
-                'A', 5, ingredientList3);
+                'A', 0, ingredientList3);
         repOmni = new Recipe(4, "ginger beef stir fry",
-                'D', 2, ingredientList4);
+                'D', 0, ingredientList4);
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -198,6 +174,7 @@ public class RecipeApp {
     private void findVegetarian(String s) {
         findMethod(s);
         printRecipe(repVeg);
+        askTried(repVeg);
     }
 
     // MODIFIES: this
@@ -205,6 +182,7 @@ public class RecipeApp {
     private void findVegan(String s) {
         findMethod(s);
         printRecipe(repVegan);
+        askTried(repVegan);
     }
 
     // MODIFIES: this
@@ -212,6 +190,7 @@ public class RecipeApp {
     private void findPescatarian(String s) {
         findMethod(s);
         printRecipe(repPesc);
+        askTried(repPesc);
     }
 
     // MODIFIES: this
@@ -219,6 +198,24 @@ public class RecipeApp {
     private void findOmnivores(String s) {
         findMethod(s);
         printRecipe(repOmni);
+        askTried(repOmni);
+    }
+
+    // EFFECTS: prompts user to give rating of recipe if tried
+    private void askTried(Recipe selected) {
+        System.out.println("Have you tried this recipe?");
+        System.out.println("A -> Yes");
+        System.out.println("B -> No");
+        String s = input.nextLine();
+        if (Objects.equals(s, "A")) {
+            System.out.println("Give your rating from 1-5 (1 horrible, 5 excellent)");
+            int n = input.nextInt();
+            input.nextLine();
+        } else if (Objects.equals(s, "B")) {
+            System.out.println("Try the recipe and rate it the next time!");
+        } else {
+            System.out.println("Invalid answer. Try again!");
+        }
     }
 
     @SuppressWarnings("methodlength")
@@ -229,7 +226,7 @@ public class RecipeApp {
             System.out.println("Do you want to enter ingredients?");
             System.out.println("A -> Yes");
             System.out.println("B -> No");
-            System.out.println("C -> Quit");
+            System.out.println("E -> Quit");
             s = input.nextLine();
             if (Objects.equals(s, "A")) {
                 System.out.println("Enter ingredient you want to add:");
@@ -256,7 +253,7 @@ public class RecipeApp {
     // EFFECTS: reduces or removes an ingredient from fridge
     private void removeIngredient(Recipe selected) {
         String s = "";
-        while (!Objects.equals(s, "C")) {
+        while (!Objects.equals(s, "E")) {
             System.out.println("Do you want to reduce ingredients?");
             System.out.println("A -> Yes");
             System.out.println("B -> No");
@@ -274,7 +271,7 @@ public class RecipeApp {
                 if (amount < 0.0) {
                     System.out.println("Cannot reduce negative value...");
                     break;
-                } else if (selected.getIngredientAmount(in) < amount) {
+                } else if (fridge.getIngredientAmount(in) < amount) {
                     System.out.println("Insufficient amount in fridge...");
                     break;
                 } else {
@@ -283,12 +280,10 @@ public class RecipeApp {
             }
             if (Objects.equals(s, "B")) {
                 System.out.println(selected);
+                printFridge();
                 break;
             }
-            break;
         }
-        printFridge();
-        printRecipe(selected);
     }
 
     private void printFridge() {
@@ -324,8 +319,8 @@ public class RecipeApp {
         return null;
     }
 
-
+    // EFFECTS: returns the recipe that was selected
     private void printRecipe(Recipe selected) {
-        System.out.printf("Recipe available: ", selected.getRecipe());
+        System.out.println("Recipe available: " + selected.getRecipe());
     }
 }

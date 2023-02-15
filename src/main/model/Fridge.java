@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-
 // Represents a fridge having a list of ingredients that are available
 public class Fridge {
     ArrayList<Ingredient> ingredientList;
@@ -18,11 +17,22 @@ public class Fridge {
     // unless if there is already that ingredient, then add the amount
     public void addIngredient(Ingredient item) {
         for (Ingredient i : ingredientList) {
-            if (i.getItem().equals(item.getItem())) {
+            if ((i.getItem().equals(item.getItem()))) {
                 i.addQuantity(item.getQuantity());
             }
         }
-        ingredientList.add(item);
+        int i = 0;
+        boolean flag = false;
+        while (i < ingredientList.size() && !flag) {
+            Ingredient temp = ingredientList.get(i);
+            if (temp.getItem().equals(item.getItem())) {
+                flag = true;
+            }
+            i++;
+        }
+        if (!flag) {
+            ingredientList.add(item);
+        }
     }
 
     // EFFECTS: returns ingredient in list with that name
@@ -69,7 +79,7 @@ public class Fridge {
 
     // EFFECTS: returns true if the fridge is empty
     public boolean checkIsEmpty() {
-        if (ingredientList.isEmpty() == true) {
+        if (ingredientList.isEmpty()) {
             return true;
         }
         return false;

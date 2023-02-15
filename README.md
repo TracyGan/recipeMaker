@@ -10,10 +10,9 @@
 ### User Stories ###
 
 - As a user, I want to be able to add ingredients into my fridge. Then, from that list of ingredients, it which will inform me which recipes are possible for me to cook.
-- As a user, I want to be able to remove ingredients from my fridge when I use it.
 - As a user, I want to be able to view the RecipeBook which contains a list of food recipes that I can make.
 - As a user, I want to be able to select the type of food recipes suitable for my needs (vegan, vegetarian, pescatarian, or omnivore).
 - As a user, I want to be able to mark a food recipe as tried.
 - As a user, I want to be able to remove the ingredients in my fridge after I have finished using all of it.
+- As a user, I want to be able to reduce the quantity of ingredients in my fridge once using it.
 - As a user, I want to be able to choose a food recipe that I have tried and rate it on a scale from 1 to 5 stars.
-- As a user, I want to be able to see statistics on the number of different food recipes I have tried, and also which food recipes I have tried the most.

@@ -48,6 +48,11 @@ public class Recipe {
         return ingredientList;
     }
 
+    public Ingredient getIngredient(int n) {
+        return ingredientList.get(n);
+    }
+
+
     // REQUIRES: star > 0 and star + ratings <= 5
     // MODIFIES: this, ratings
     // EFFECTS: star is added to the ratings and updated ratings is returned
@@ -66,8 +71,8 @@ public class Recipe {
 
     // EFFECTS: returns the recipe's id, name, type, rating and ingredients
     public String getRecipe() {
-        return "ID = " + id + ", Name = " + name + ", Type = " + type
-                + ", Rating = " + ratings + ", Ingredients : " + ingredientList;
+        return "ID = " + id + "\n Name = " + name + "\n Type = " + type
+                + "\n Rating = " + ratings;
     }
 
     // MODIFIES: this, ingredientList
