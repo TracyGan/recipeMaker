@@ -138,8 +138,8 @@ public class RecipeTest {
 
     @Test
     void testGetRecipe() {
-        assertTrue(testRecipe.getRecipe().contains("ID = 1, Name = kimchi fried rice, " +
-                "Type = C, Rating = 0, Ingredients : "));
+        assertTrue(testRecipe.getRecipe().contains("ID = 1" +"\n Name = kimchi fried rice" +
+                "\n Type = C" + "\n Rating = 0"));
     }
 
     @Test

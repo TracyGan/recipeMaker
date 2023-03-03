@@ -21,7 +21,7 @@ public class FridgeTest {
 
     @BeforeEach
     void setUp() {
-        testFridge = new Fridge();
+        testFridge = new Fridge("Tracy");
         ingredient1 = new Ingredient("rice", 1000, Unit.g);
         ingredient2 = new Ingredient("kimchi", 500, Unit.g);
         ingredient3 = new Ingredient ("egg", 10, Unit.whole);

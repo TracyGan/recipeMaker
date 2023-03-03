@@ -1,15 +1,25 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.ListIterator;
 
 // Represents a fridge having a list of ingredients that are available
-public class Fridge {
-    ArrayList<Ingredient> ingredientList;
+public class Fridge implements Writable {
+    private ArrayList<Ingredient> ingredientList;
+    private String name;
 
-    // EFFECTS: constructs a fridge with an empty list of ingredients
-    public Fridge() {
+    // EFFECTS: constructs a fridge with a name and an empty list of ingredients
+    public Fridge(String name) {
+        this.name = name;
         ingredientList = new ArrayList<Ingredient>();
+    }
+
+    public String getName() {
+        return name;
     }
 
     // MODIFIES: this, ingredient
@@ -95,4 +105,20 @@ public class Fridge {
         return ingredientList.get(n);
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("Ingredients", ingredientsToJson());
+        return json;
+    }
+
+    private JSONArray ingredientsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Ingredient i : ingredientList) {
+            jsonArray.put(i.toJson());
+        }
+        return jsonArray;
+    }
 }

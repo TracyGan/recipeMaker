@@ -1,7 +1,11 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 // Recipe maker application
@@ -12,9 +16,16 @@ public class RecipeApp {
     private Recipe repVeg;
     private Recipe repVegan;
     private Recipe repOmni;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private static final String JSON_STORE = "./data/fridge.json";
 
-    // EFFECTS: runs the recipe application
+    // EFFECTS: constructs fridge and runs the recipe application
     public RecipeApp() {
+        input = new Scanner(System.in);
+        fridge = new Fridge("Tracy's fridge");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runRecipe();
     }
 
@@ -52,6 +63,12 @@ public class RecipeApp {
             findPescatarian("C");
         } else if (command.equals("D")) {
             findOmnivores("D");
+        } else if (command.equals("F")) {
+            printFridge();
+        } else if (command.equals("G")) {
+            saveFridge();
+        } else if (command.equals("H")) {
+            loadFridge();
         } else {
             System.out.println("Selection is not valid! ");
         }
@@ -59,7 +76,6 @@ public class RecipeApp {
 
     @SuppressWarnings("methodlength")
     private void init() {
-        fridge = new Fridge();
         Ingredient i1 = new Ingredient("rice", 1000, Unit.g);
         Ingredient i2 = new Ingredient("kimchi", 500, Unit.g);
         Ingredient i3 = new Ingredient("egg", 10, Unit.whole);
@@ -167,6 +183,32 @@ public class RecipeApp {
         System.out.println("\t C -> Pescatarian");
         System.out.println("\t D -> Omnivores");
         System.out.println("\t E -> Quit");
+        System.out.println("\t F -> Print Fridge");
+        System.out.println("\t G -> Save fridge to file");
+        System.out.println("\t H -> Load fridge from file");
+    }
+
+    // EFFECTS: saves the fridge to file
+    private void saveFridge() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(fridge);
+            jsonWriter.close();
+            System.out.println("Saved " + fridge.getName() + "'s fridge to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads fridge from file
+    private void loadFridge() {
+        try {
+            fridge = jsonReader.read();
+            System.out.println("Loaded " + fridge.getName() + "'s fridge from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
     // MODIFIES: this
