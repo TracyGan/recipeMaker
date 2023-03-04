@@ -61,6 +61,17 @@ public class FridgeTest {
     }
 
     @Test
+    void testAddIngredientLast() {
+        testFridge.addIngredient(ingredient1);
+        testFridge.addIngredient(ingredient2);
+        assertTrue(testFridge.getIngredients().contains(ingredient1));
+        assertTrue(testFridge.getIngredients().contains(ingredient2));
+        assertEquals(2, testFridge.getSize());
+        testFridge.addIngredient(ingredient2);
+        assertEquals(2, testFridge.getSize());
+    }
+
+    @Test
     void testAddSixItems() {
         testFridge.addIngredient(ingredient1);
         testFridge.addIngredient(ingredient2);

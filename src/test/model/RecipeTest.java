@@ -167,4 +167,9 @@ public class RecipeTest {
         assertEquals(0.5, testRecipe.getIngredientAmount(i4));
     }
 
+    @Test
+    void testGetIngredient() {
+        assertEquals(i1, testRecipe.getIngredient(0));
+    }
+
 }
