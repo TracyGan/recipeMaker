@@ -16,6 +16,6 @@
 - As a user, I want to be able to remove the ingredients in my fridge after I have finished using all of it.
 - As a user, I want to be able to reduce the quantity of ingredients in my fridge once using it.
 - As a user, I want to be able to choose a food recipe that I have tried and rate it on a scale from 1 to 5 stars.
-- As a user, once I have finished using the application, I want to the updated list of my ingredients in my fridge.
+- As a user, once I have finished using the application, I want to be able to check the updated list of my ingredients in my fridge.
 - As a user, when I start the application, I want to be able to load the ingredients I have in my fridge from file.
-- As a user, I want to be able to save the ratings I have added for the recipes
+- As a user, I want to be able to save the ratings I have added for the recipes.
