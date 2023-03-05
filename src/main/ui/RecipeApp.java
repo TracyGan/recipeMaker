@@ -194,7 +194,7 @@ public class RecipeApp {
             jsonWriter.open();
             jsonWriter.write(fridge);
             jsonWriter.close();
-            System.out.println("Saved " + fridge.getName() + "'s fridge to " + JSON_STORE);
+            System.out.println("Saved " + fridge.getName() + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -205,7 +205,8 @@ public class RecipeApp {
     private void loadFridge() {
         try {
             fridge = jsonReader.read();
-            System.out.println("Loaded " + fridge.getName() + "'s fridge from " + JSON_STORE);
+            System.out.println("Loaded " + fridge.getName() + " from " + JSON_STORE);
+            printFridge();
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
@@ -253,6 +254,8 @@ public class RecipeApp {
             System.out.println("Give your rating from 1-5 (1 horrible, 5 excellent)");
             int n = input.nextInt();
             input.nextLine();
+            selected.increaseRating(n);
+            printRecipe(selected);
         } else if (Objects.equals(s, "B")) {
             System.out.println("Try the recipe and rate it the next time!");
         } else {
