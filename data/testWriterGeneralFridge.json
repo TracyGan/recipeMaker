@@ -1,0 +1,20 @@
+{
+    "Ingredients": [
+        {
+            "Quantity": 5000,
+            "Unit": "g",
+            "Name": "rice"
+        },
+        {
+            "Quantity": 500,
+            "Unit": "g",
+            "Name": "kimchi"
+        },
+        {
+            "Quantity": 10,
+            "Unit": "whole",
+            "Name": "egg"
+        }
+    ],
+    "name": "My fridge"
+}

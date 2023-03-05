@@ -1,0 +1,130 @@
+{
+    "Ingredients": [
+        {
+            "Quantity": 1000,
+            "Unit": "g",
+            "Name": "rice"
+        },
+        {
+            "Quantity": 500,
+            "Unit": "g",
+            "Name": "kimchi"
+        },
+        {
+            "Quantity": 10,
+            "Unit": "whole",
+            "Name": "egg"
+        },
+        {
+            "Quantity": 1,
+            "Unit": "whole",
+            "Name": "garlic"
+        },
+        {
+            "Quantity": 100,
+            "Unit": "g",
+            "Name": "sesame seed"
+        },
+        {
+            "Quantity": 2000,
+            "Unit": "ml",
+            "Name": "olive oil"
+        },
+        {
+            "Quantity": 5,
+            "Unit": "whole",
+            "Name": "onion"
+        },
+        {
+            "Quantity": 1,
+            "Unit": "whole",
+            "Name": "carrot"
+        },
+        {
+            "Quantity": 200,
+            "Unit": "g",
+            "Name": "peas"
+        },
+        {
+            "Quantity": 1,
+            "Unit": "cups",
+            "Name": "pineapple"
+        },
+        {
+            "Quantity": 0.5,
+            "Unit": "cups",
+            "Name": "cashews"
+        },
+        {
+            "Quantity": 2,
+            "Unit": "tbsp",
+            "Name": "soy sauce"
+        },
+        {
+            "Quantity": 2,
+            "Unit": "tbsp",
+            "Name": "curry powder"
+        },
+        {
+            "Quantity": 0.5,
+            "Unit": "whole",
+            "Name": "cilantro"
+        },
+        {
+            "Quantity": 3,
+            "Unit": "whole",
+            "Name": "tomato"
+        },
+        {
+            "Quantity": 100,
+            "Unit": "g",
+            "Name": "lentil"
+        },
+        {
+            "Quantity": 15,
+            "Unit": "whole",
+            "Name": "mushroom"
+        },
+        {
+            "Quantity": 200,
+            "Unit": "g",
+            "Name": "panko"
+        },
+        {
+            "Quantity": 4,
+            "Unit": "tsp",
+            "Name": "italian seasoning"
+        },
+        {
+            "Quantity": 100,
+            "Unit": "g",
+            "Name": "parmesan cheese"
+        },
+        {
+            "Quantity": 2,
+            "Unit": "whole",
+            "Name": "basil"
+        },
+        {
+            "Quantity": 1,
+            "Unit": "whole",
+            "Name": "raw beef"
+        },
+        {
+            "Quantity": 1,
+            "Unit": "tbsp",
+            "Name": "honey"
+        },
+        {
+            "Quantity": 1,
+            "Unit": "whole",
+            "Name": "ginger"
+        },
+        {
+            "Quantity": 3,
+            "Unit": "whole",
+            "Name": "chili"
+        }
+    ],
+    "name": "Tracy's fridge"
+}
