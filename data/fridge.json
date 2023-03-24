@@ -124,6 +124,11 @@
             "Quantity": 3,
             "Unit": "whole",
             "Name": "chili"
+        },
+        {
+            "Quantity": 5,
+            "Unit": "whole",
+            "Name": "apple"
         }
     ],
     "name": "Tracy's fridge"

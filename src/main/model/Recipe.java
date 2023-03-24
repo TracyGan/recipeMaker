@@ -1,11 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Represents a recipe having an id, name, type of food (A = vegetarian, B = vegan, C = pescatarian, or D = omnivore),
 // ratings (1-5) where a rating of 5 means excellent, whether the user has tried it,
 // and a list of ingredients with its specified amount (in grams)
-public class Recipe {
+public class Recipe implements Writable {
     private int id;                 // id of the recipe
     private String name;            // name of recipe
     private char type;            // type of recipe
@@ -69,6 +73,11 @@ public class Recipe {
         return ratings;
     }
 
+    public int updateRating(int star) {
+        this.ratings = star;
+        return ratings;
+    }
+
     // EFFECTS: returns the recipe's id, name, type, rating and ingredients
     public String getRecipe() {
         return "ID = " + id + "\n Name = " + name + "\n Type = " + type
@@ -85,4 +94,12 @@ public class Recipe {
     public double getIngredientAmount(Ingredient i) {
         return i.getQuantity();
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("Ratings:", ratings);
+        return json;
+    }
+
 }

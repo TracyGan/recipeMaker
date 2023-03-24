@@ -4,6 +4,8 @@ import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -26,7 +28,9 @@ public class RecipeApp {
         fridge = new Fridge("Tracy's fridge");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+
         runRecipe();
+
     }
 
     // MODIFIES: this
@@ -254,7 +258,7 @@ public class RecipeApp {
             System.out.println("Give your rating from 1-5 (1 horrible, 5 excellent)");
             int n = input.nextInt();
             input.nextLine();
-            selected.increaseRating(n);
+            selected.updateRating(n);
             printRecipe(selected);
         } else if (Objects.equals(s, "B")) {
             System.out.println("Try the recipe and rate it the next time!");
@@ -363,6 +367,15 @@ public class RecipeApp {
         }
         return null;
     }
+
+    // TODO: check if i can make that recipe with ingredients i have in fridge
+//    private Recipe checkRecipeVegetarian() {
+//        Iterator<Ingredient> i1 = repPesc.getIngredients().iterator();
+//        Iterator<Ingredient> i2 = fridge.getIngredients().iterator();
+//
+//        while (i1.hasNext() && i2.hasNext()) {
+//        }
+//    }
 
     // EFFECTS: returns the recipe that was selected
     private void printRecipe(Recipe selected) {

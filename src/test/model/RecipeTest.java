@@ -99,6 +99,14 @@ public class RecipeTest {
     }
 
     @Test
+    void testUpdateRating() {
+        testRecipe.updateRating(2);
+        assertEquals(2, testRecipe.getRatings());
+        testRecipe.updateRating(5);
+        assertEquals(5, testRecipe.getRatings());
+    }
+
+    @Test
     void testGetType() {
         assertEquals('C', testRecipe.getType());
     }

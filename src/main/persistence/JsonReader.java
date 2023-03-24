@@ -2,6 +2,7 @@ package persistence;
 
 import model.Ingredient;
 import model.Fridge;
+import model.Recipe;
 import model.Unit;
 
 import java.io.IOException;
@@ -64,6 +65,12 @@ public class JsonReader {
         Unit unit = Unit.valueOf(jsonObject.getString("Unit"));
         Ingredient i = new Ingredient(name, quantity, unit);
         fr.addIngredient(i);
+    }
+
+    private void updateRating(Recipe r, JSONObject jsonObject) {
+        JSONArray jsonArray = jsonObject.getJSONArray("Ratings");
+        int rating = jsonObject.getInt("Ratings");
+        r.updateRating(rating);
     }
 
 }
