@@ -19,3 +19,12 @@
 - As a user, once I have finished using the application, I want to be able to check the updated list of my ingredients in my fridge.
 - As a user, when I start the application, I want to be able to load the ingredients I have in my fridge from file.
 - As a user, I want to be able to save the ratings I have added for the recipes.
+
+
+### Instructions for Grader ###
+
+- You can generate the first required action related to adding Xs to Y by pressing the Add Ingredient button in Control Panel Functions. Another window of Ingredient name, Ingredient amount and units will be shown. You are only allowed to input the ingredients as shown on the window.
+- You can generate the second required action related to adding Xs to Y by pressing the Reduce Ingredient button in Control Panel Functions. This can be handled to remove Xs from Y.
+- You can locate my visual component after pressing the Save button in Add Ingredient window.
+- You can save the state of my application by pressing 'Save fridge to file' button in Control Panel Functions.
+- You can reload the state of my application by pressing 'Load fridge from file' button in Control Panel Functions.

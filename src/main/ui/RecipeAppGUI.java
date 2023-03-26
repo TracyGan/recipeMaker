@@ -10,17 +10,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+// Represents a GUI for the RecipeApp
 public class RecipeAppGUI extends JFrame {
 
-    private JList<Ingredient> ingredientList;
-    private DefaultListModel<Ingredient> model;
     private JLabel label;
     private JLabel item;
     private JLabel amt;
     private JLabel unit;
-    private JPanel panel;
-    private JSplitPane splitPane;
-    private JScrollPane scroll;
     private JDesktopPane desktop;
     private JInternalFrame controlPanel;
     private JFrame frame;
@@ -34,9 +30,12 @@ public class RecipeAppGUI extends JFrame {
     private static final int HEIGHT = 600;
     private Fridge fridge;
     private JButton saveButton;
+    private JButton saveButton1;
     private JButton cancelButton;
     private SaveActionListener saveActionListener;
     private CancelActionListener cancelActionListener;
+    private FridgeUi fridgeUi;
+    private static final String JSON_STORE = "./data/fridge.json";
 
     public RecipeAppGUI() {
         fridge = new Fridge("Tracy's fridge");
@@ -48,51 +47,32 @@ public class RecipeAppGUI extends JFrame {
         controlPanel = new JInternalFrame("Control Panel Functions", true,
                 false, false, false);
         controlPanel.setLayout(new BorderLayout());
-        frame1 = new JFrame( " ingredient");
+        frame1 = new JFrame(" ingredient");
+        fridgeUi = new FridgeUi(fridge);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
 
         setContentPane(desktop);
         setTitle("Recipe Maker");
         setSize(WIDTH, HEIGHT);
-        setBackground(Color.PINK);
 
         addButtonPanel();
-        addFridge();
+        setScreen();
+        desktop.add(controlPanel);
+    }
 
+    // EFFECTS: sets the controls of the screen
+    public void setScreen() {
         controlPanel.pack();
         controlPanel.setVisible(true);
-        desktop.add(controlPanel);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         centreOnScreen();
         setVisible(true);
     }
 
-    public void addFridge() {
-        ingredientList = new JList<>();
-        panel = new JPanel();
-        label = new JLabel();
-        model = new DefaultListModel<>();
-        splitPane = new JSplitPane();
-        ingredientList.setModel(model);
-
-        model.addElement(new Ingredient("Apple", 5, Unit.whole));
-        model.addElement(new Ingredient("Egg", 20, Unit.whole));
-        model.addElement(new Ingredient("Orange", 5, Unit.whole));
-
-        ingredientList.getSelectionModel().addListSelectionListener(e -> {
-            Ingredient i = ingredientList.getSelectedValue();
-            label.setText("Ingredient: " + i.getItem() + " : " + i.getQuantity());
-        });
-
-        splitPane.setLeftComponent(new JScrollPane(ingredientList));
-        panel.add(label);
-        splitPane.setRightComponent(panel);
-
-        desktop.add(splitPane);
-        desktop.setVisible(true);
-        centreOnScreen();
-    }
-
+    // MODIFIES: controlPanel
+    // EFFECTS: adds the panel of buttons
     public void addButtonPanel() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 2));
@@ -100,10 +80,24 @@ public class RecipeAppGUI extends JFrame {
         buttonPanel.add(new JButton(new ReduceIngredient()));
         buttonPanel.add(new JButton(new SaveFridge()));
         buttonPanel.add(new JButton(new PrintFridge()));
+        buttonPanel.add(new JButton(new LoadFridge()));
 
         controlPanel.add(buttonPanel, BorderLayout.WEST);
     }
 
+    // Represents a class to load fridge from file
+    private class LoadFridge extends AbstractAction {
+        LoadFridge() {
+            super("Load fridge from file");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            fridgeUi.loadFridge();
+        }
+    }
+
+    // Represents a class to add ingredients
     private class AddIngredient extends AbstractAction {
         AddIngredient() {
             super("Add Ingredient");
@@ -115,6 +109,7 @@ public class RecipeAppGUI extends JFrame {
         }
     }
 
+    // Represents a class to remove or reduce Ingredients
     private class ReduceIngredient extends AbstractAction {
         ReduceIngredient() {
             super("Reduce Ingredient");
@@ -126,25 +121,45 @@ public class RecipeAppGUI extends JFrame {
         }
     }
 
-    // TODO: is it okay if this methods length exceeds max
+    // MODIFIES: this, f1, f2, f3, unit, label
+    // EFFECTS: produces another JFrame containing information to change ingredients in Fridge
     public void createPage(String s, String s1) {
         setBackground(Color.PINK);
-        f1 = new JTextField();
+        if (f1 == null) {
+            f1 = new JTextField();
+        }
         item = new JLabel("Ingredient : ");
+        if (f2 == null) {
+            f2 = new JTextField();
+        }
+        amt = new JLabel("Amount : ");
+        if (f3 == null) {
+            f3 = new JTextField();
+        }
+        unit = new JLabel("Unit : ");
+        label = new JLabel("g / ml / cups / tsp / tbsp / whole");
+        setBounds();
+        addObjectsIntoFrame();
+    }
+
+    // MODIFIES: f1, f2, f3, item, amt, unit, saveButton, cancelButton
+    // EFFECTS: sets the bounds of buttons and text fields onto JFrame
+    public void setBounds() {
         f1.setBounds(90, 100, 200, 30);
         item.setBounds(20, 100, 100, 30);
-        f2 = new JTextField();
-        amt = new JLabel("Amount : ");
         f2.setBounds(90, 150, 200, 30);
         amt.setBounds(20, 150, 100, 30);
-        f3 = new JTextField();
-        unit = new JLabel("Unit : ");
         f3.setBounds(90, 230, 200, 30);
         unit.setBounds(20, 230, 50, 30);
-        label = new JLabel("g / ml / cups / tsp / tbsp / whole");
         label.setBounds(50, 200, 250, 30);
         saveButton.setBounds(20, 270, 150, 30);
         cancelButton.setBounds(200, 270,150, 30);
+
+    }
+
+    // MODIFIES: frame1
+    // EFFECTS: places the buttons, labels, and text fields onto JFrame
+    public void addObjectsIntoFrame() {
         frame1.add(f1);
         frame1.add(f2);
         frame1.add(f3);
@@ -159,9 +174,11 @@ public class RecipeAppGUI extends JFrame {
         frame1.setVisible(true);
     }
 
-
+    // MODIFIES: frame1
+    // EFFECTS: next action after pressing the Increase Ingredient button
     public void increaseIngredient() {
         createPage("Adding", "Add");
+        cleanUp();
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -169,15 +186,28 @@ public class RecipeAppGUI extends JFrame {
                 double amount = Double.parseDouble(f2.getText());
                 Unit unit = Unit.valueOf(f3.getText());
                 fridge.addIngredient(new Ingredient(ingredient, amount, unit));
+                f1.setText("");
+                f2.setText("");
+                f3.setText("");
+                frame1.dispose();
+                Image image = new Image();
+                image.addImage();
             }
         });
-        //TODO: i want to close the createPage window not this
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame1.dispose();
             }
         });
+    }
+
+    // MODIFIES: saveButton
+    // EFFECTS: removes all action listeners
+    private void cleanUp() {
+        for (ActionListener al : saveButton.getActionListeners())  {
+            saveButton.removeActionListener(al);
+        }
     }
 
     private class CancelActionListener implements ActionListener {
@@ -196,9 +226,11 @@ public class RecipeAppGUI extends JFrame {
         }
     }
 
-
+    // MODIFIES: frame1
+    // EFFECTS: next action after pressing the Decrease Ingredient button
     public void decreaseIngredient() {
         createPage("Reducing", "Reduce");
+        cleanUp();
         saveButton.addActionListener(new ActionListener() {
 
             @Override
@@ -207,11 +239,22 @@ public class RecipeAppGUI extends JFrame {
                 double amount = Double.parseDouble(f2.getText());
                 Unit unit = Unit.valueOf(f3.getText());
                 fridge.removeOrReduceIngredient(new Ingredient(ingredient, amount, unit), amount);
+                f1.setText("");
+                f2.setText("");
+                f3.setText("");
+                frame1.dispose();
+            }
+        });
+
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame1.dispose();
             }
         });
     }
 
-    // TODO: do i need to implement a json into save fridge
+    // Represents a class to save fridge to file
     private class SaveFridge extends AbstractAction {
         SaveFridge() {
             super("Save fridge to file");
@@ -219,10 +262,11 @@ public class RecipeAppGUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            frame = new JFrame("save");
+            fridgeUi.saveFridge();
         }
     }
 
+    // Represents a class to print fridge
     private class PrintFridge extends AbstractAction {
         PrintFridge() {
             super("Print fridge from file");
@@ -230,66 +274,24 @@ public class RecipeAppGUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-//            frame = new JFrame();
-//            for (int i = 0; i < fridge.getSize(); i++) {
-//                System.out.println(fridge.getItem(i).returnIngredient());
-//                createFridge();
-//            }
-            createFridge();
+            fridgeUi.printFridge();
         }
     }
 
+    // EFFECTS: positions the JFrame in the middle of screen
     public void centreOnScreen() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
 
     }
 
-    private class KeyHandler extends KeyAdapter {
-        @Override
-        public void keyPressed(KeyEvent e) {
-
-        }
-    }
-
+    // MODIFIES: this
+    // EFFECTS:
     private class DesktopFocusAction extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
             RecipeAppGUI.this.requestFocusInWindow();
         }
     }
-
-    // TODO: how to save all the ingredients in my fridge to my JLIST together
-    private void createFridge() {
-        frame = new JFrame("Fridge");
-        ingredientList = new JList<>();
-        model = new DefaultListModel<>();
-
-        label = new JLabel();
-        panel = new JPanel();
-        splitPane = new JSplitPane();
-
-        ingredientList.setModel(model);
-
-        model.addElement(new Ingredient("Rice", 500, Unit.g));
-// for loop -> iterate over all ingredients of fridge and call model.addElement
-
-        splitPane.setLeftComponent(new JScrollPane(ingredientList));
-
-        panel.add(label);
-        splitPane.setRightComponent(panel);
-
-        ingredientList.getSelectionModel().addListSelectionListener(e -> {
-            Ingredient i = this.ingredientList.getSelectedValue();
-            label.setText("Ingredient : " + i.getItem() + " , Amount : " + i.getQuantity() + i.getUnit());
-        });
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.add(splitPane);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        frame.setSize(WIDTH, HEIGHT);
-    }
-
 
 }
