@@ -83,6 +83,8 @@ public class FridgeUi implements Writable {
         }
     }
 
+    // MODIFIES: model, this
+    // EFFECTS: prints out the items of the fridge into two separate panels
     public void printFridge() {
         frame = new JFrame("Fridge");
         renewModel();
