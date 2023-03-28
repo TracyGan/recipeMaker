@@ -29,5 +29,16 @@ public class Image extends JFrame {
 
         jframe.setContentPane(new JLabel(image));
         jframe.setResizable(false);
+        setTimer();
+    }
+
+    public void setTimer() {
+        Timer timer = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                jframe.dispose();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 }

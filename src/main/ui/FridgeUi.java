@@ -32,7 +32,7 @@ public class FridgeUi implements Writable {
         frame = new JFrame("Fridge");
         ingredientList = new JList<>();
         model = new DefaultListModel<>();
-        this.fridge = fr;
+        fridge = fr;
 
         label = new JLabel();
         panel = new JPanel();
@@ -47,6 +47,7 @@ public class FridgeUi implements Writable {
         name = fr.getName();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+
     }
 
     // EFFECTS: saves the fridge to file
@@ -61,10 +62,17 @@ public class FridgeUi implements Writable {
         }
     }
 
+    public Fridge getFridgeUI() {
+        return fridge;
+    }
+
     // EFFECTS: renews a new model each time the fridge is to be printed out
     public void renewModel() {
         model = new DefaultListModel<>();
         ingredientList = new JList<>();
+        label = new JLabel();
+        panel = new JPanel();
+        splitPane = new JSplitPane();
         ingredientList.setModel(model);
         splitPane.setLeftComponent(new JScrollPane(ingredientList));
         panel.add(label);

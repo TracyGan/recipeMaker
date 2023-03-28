@@ -368,15 +368,6 @@ public class RecipeApp {
         return null;
     }
 
-    // TODO: check if i can make that recipe with ingredients i have in fridge
-//    private Recipe checkRecipeVegetarian() {
-//        Iterator<Ingredient> i1 = repPesc.getIngredients().iterator();
-//        Iterator<Ingredient> i2 = fridge.getIngredients().iterator();
-//
-//        while (i1.hasNext() && i2.hasNext()) {
-//        }
-//    }
-
     // EFFECTS: returns the recipe that was selected
     private void printRecipe(Recipe selected) {
         System.out.println("Recipe available: " + selected.getRecipe());

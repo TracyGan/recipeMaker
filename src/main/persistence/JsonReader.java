@@ -39,7 +39,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses fridge from JSON object and returns it
-    private Fridge parseFridge(JSONObject jsonObject) {
+    public Fridge parseFridge(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Fridge fr = new Fridge(name);
         addIngredients(fr, jsonObject);

@@ -38,7 +38,7 @@ public class RecipeAppGUI extends JFrame {
     private static final String JSON_STORE = "./data/fridge.json";
 
     public RecipeAppGUI() {
-        fridge = new Fridge("Tracy's fridge");
+        //fridge = new Fridge("Tracy's fridge");
         saveButton = new JButton("Save");
         cancelButton = new JButton("Cancel");
         desktop = new JDesktopPane();
@@ -48,7 +48,7 @@ public class RecipeAppGUI extends JFrame {
                 false, false, false);
         controlPanel.setLayout(new BorderLayout());
         frame1 = new JFrame(" ingredient");
-        fridgeUi = new FridgeUi(fridge);
+        fridgeUi = new FridgeUi(new Fridge("Tracy's fridge"));
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
@@ -185,7 +185,8 @@ public class RecipeAppGUI extends JFrame {
                 String ingredient = f1.getText();
                 double amount = Double.parseDouble(f2.getText());
                 Unit unit = Unit.valueOf(f3.getText());
-                fridge.addIngredient(new Ingredient(ingredient, amount, unit));
+                //fridge.addIngredient(new Ingredient(ingredient, amount, unit));
+                fridgeUi.getFridgeUI().addIngredient(new Ingredient(ingredient, amount, unit));
                 f1.setText("");
                 f2.setText("");
                 f3.setText("");
@@ -238,7 +239,8 @@ public class RecipeAppGUI extends JFrame {
                 String ingredient = f1.getText();
                 double amount = Double.parseDouble(f2.getText());
                 Unit unit = Unit.valueOf(f3.getText());
-                fridge.removeOrReduceIngredient(new Ingredient(ingredient, amount, unit), amount);
+                //fridge.removeOrReduceIngredient(new Ingredient(ingredient, amount, unit), amount);
+                fridgeUi.getFridgeUI().removeOrReduceIngredient(new Ingredient(ingredient, amount, unit), amount);
                 f1.setText("");
                 f2.setText("");
                 f3.setText("");
