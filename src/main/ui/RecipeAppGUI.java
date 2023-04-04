@@ -38,20 +38,7 @@ public class RecipeAppGUI extends JFrame {
     private Image image;
 
     public RecipeAppGUI() {
-        saveButton = new JButton("Save");
-        cancelButton = new JButton("Cancel");
-        desktop = new JDesktopPane();
-        saveActionListener = new SaveActionListener();
-        desktop.addMouseListener(new DesktopFocusAction());
-        controlPanel = new JInternalFrame("Control Panel Functions", true,
-                false, false, false);
-        controlPanel.setLayout(new BorderLayout());
-        frame = new JFrame("Change Ingredient");
-        fridgeUi = new FridgeUi(new Fridge("Tracy's fridge"));
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
-        image = new Image();
-
+        createObjects();
         setContentPane(desktop);
         setTitle("Recipe Maker");
         setSize(WIDTH, HEIGHT);
@@ -70,6 +57,22 @@ public class RecipeAppGUI extends JFrame {
                 }
             }
         });
+    }
+
+    public void createObjects() {
+        saveButton = new JButton("Save");
+        cancelButton = new JButton("Cancel");
+        desktop = new JDesktopPane();
+        saveActionListener = new SaveActionListener();
+        desktop.addMouseListener(new DesktopFocusAction());
+        controlPanel = new JInternalFrame("Control Panel Functions", true,
+                false, false, false);
+        controlPanel.setLayout(new BorderLayout());
+        frame = new JFrame("Change Ingredient");
+        fridgeUi = new FridgeUi(new Fridge("Tracy's fridge"));
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        image = new Image();
     }
 
     // EFFECTS: sets the controls of the screen
