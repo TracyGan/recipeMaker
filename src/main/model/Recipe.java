@@ -69,6 +69,8 @@ public class Recipe {
         return ratings;
     }
 
+    // MODIFIES: this, ratings
+    // EFFECTS: updates the ratings
     public int updateRating(int star) {
         this.ratings = star;
         return ratings;

@@ -2,7 +2,6 @@ package ui;
 
 import model.Fridge;
 import model.Ingredient;
-import model.Unit;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.JsonReader;
@@ -13,6 +12,7 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// Represents the UI of the fridge
 public class FridgeUi implements Writable {
     private JList<Ingredient> ingredientList;
     private DefaultListModel<Ingredient> model;
@@ -50,6 +50,7 @@ public class FridgeUi implements Writable {
 
     }
 
+    // MODIFIES: jsonWriter
     // EFFECTS: saves the fridge to file
     public void saveFridge() {
         try {
@@ -62,10 +63,12 @@ public class FridgeUi implements Writable {
         }
     }
 
+    // EFFECTS: returns the fridge
     public Fridge getFridgeUI() {
         return fridge;
     }
 
+    // MODIFIES: ingredientList, splitPane, panel
     // EFFECTS: renews a new model each time the fridge is to be printed out
     public void renewModel() {
         model = new DefaultListModel<>();
@@ -111,6 +114,8 @@ public class FridgeUi implements Writable {
         }
     }
 
+    // MODIFIES: json
+    // EFFECTS: creates a JSON Object, relating to an ingredient
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -119,6 +124,8 @@ public class FridgeUi implements Writable {
         return json;
     }
 
+    // MODIFIES: jsonArray
+    // EFFECTS: adds the list of ingredients in the fridge to jsonArray
     private JSONArray ingredientsToJson() {
         JSONArray jsonArray = new JSONArray();
 

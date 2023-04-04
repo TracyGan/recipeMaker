@@ -1,12 +1,9 @@
 package ui;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 // Represents the class containing the image pop-up
 public class Image extends JFrame {
@@ -18,6 +15,7 @@ public class Image extends JFrame {
         jframe = new JFrame("Yay!");
     }
 
+    // MODIFIES: jframe
     // EFFECTS: adds the image onto the JFrame to be displayed
     public void addImage() {
         jframe = new JFrame("Yay!");
@@ -32,6 +30,8 @@ public class Image extends JFrame {
         setTimer();
     }
 
+    // MODIFIES: timer
+    // EFFECTS: sets the time the jframe appears for
     public void setTimer() {
         Timer timer = new Timer(1000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {

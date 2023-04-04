@@ -1,8 +1,10 @@
 package ui;
 
+import model.EventLog;
 import model.Fridge;
 import model.Ingredient;
 import model.Unit;
+import model.exception.LogException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -20,7 +22,6 @@ public class RecipeAppGUI extends JFrame {
     private JDesktopPane desktop;
     private JInternalFrame controlPanel;
     private JFrame frame;
-    private JFrame frame1;
     private JTextField f1;
     private JTextField f2;
     private JTextField f3;
@@ -28,17 +29,15 @@ public class RecipeAppGUI extends JFrame {
     private JsonReader jsonReader;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
-    private Fridge fridge;
     private JButton saveButton;
-    private JButton saveButton1;
     private JButton cancelButton;
     private SaveActionListener saveActionListener;
     private CancelActionListener cancelActionListener;
     private FridgeUi fridgeUi;
     private static final String JSON_STORE = "./data/fridge.json";
+    private Image image;
 
     public RecipeAppGUI() {
-        //fridge = new Fridge("Tracy's fridge");
         saveButton = new JButton("Save");
         cancelButton = new JButton("Cancel");
         desktop = new JDesktopPane();
@@ -47,10 +46,11 @@ public class RecipeAppGUI extends JFrame {
         controlPanel = new JInternalFrame("Control Panel Functions", true,
                 false, false, false);
         controlPanel.setLayout(new BorderLayout());
-        frame1 = new JFrame(" ingredient");
+        frame = new JFrame("Change Ingredient");
         fridgeUi = new FridgeUi(new Fridge("Tracy's fridge"));
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+        image = new Image();
 
         setContentPane(desktop);
         setTitle("Recipe Maker");
@@ -59,6 +59,17 @@ public class RecipeAppGUI extends JFrame {
         addButtonPanel();
         setScreen();
         desktop.add(controlPanel);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    ScreenPrinter screenPrinter = new ScreenPrinter();
+                    screenPrinter.printLog(EventLog.getInstance());
+                } catch (LogException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
     }
 
     // EFFECTS: sets the controls of the screen
@@ -84,6 +95,7 @@ public class RecipeAppGUI extends JFrame {
 
         controlPanel.add(buttonPanel, BorderLayout.WEST);
     }
+
 
     // Represents a class to load fridge from file
     private class LoadFridge extends AbstractAction {
@@ -123,7 +135,7 @@ public class RecipeAppGUI extends JFrame {
 
     // MODIFIES: this, f1, f2, f3, unit, label
     // EFFECTS: produces another JFrame containing information to change ingredients in Fridge
-    public void createPage(String s, String s1) {
+    public void createPage() {
         setBackground(Color.PINK);
         if (f1 == null) {
             f1 = new JTextField();
@@ -160,24 +172,24 @@ public class RecipeAppGUI extends JFrame {
     // MODIFIES: frame1
     // EFFECTS: places the buttons, labels, and text fields onto JFrame
     public void addObjectsIntoFrame() {
-        frame1.add(f1);
-        frame1.add(f2);
-        frame1.add(f3);
-        frame1.add(item);
-        frame1.add(amt);
-        frame1.add(unit);
-        frame1.add(label);
-        frame1.add(saveButton);
-        frame1.add(cancelButton);
-        frame1.setSize(400, 400);
-        frame1.setLayout(null);
-        frame1.setVisible(true);
+        frame.add(f1);
+        frame.add(f2);
+        frame.add(f3);
+        frame.add(item);
+        frame.add(amt);
+        frame.add(unit);
+        frame.add(label);
+        frame.add(saveButton);
+        frame.add(cancelButton);
+        frame.setSize(400, 400);
+        frame.setLayout(null);
+        frame.setVisible(true);
     }
 
     // MODIFIES: frame1
     // EFFECTS: next action after pressing the Increase Ingredient button
     public void increaseIngredient() {
-        createPage("Adding", "Add");
+        createPage();
         cleanUp();
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -185,20 +197,18 @@ public class RecipeAppGUI extends JFrame {
                 String ingredient = f1.getText();
                 double amount = Double.parseDouble(f2.getText());
                 Unit unit = Unit.valueOf(f3.getText());
-                //fridge.addIngredient(new Ingredient(ingredient, amount, unit));
                 fridgeUi.getFridgeUI().addIngredient(new Ingredient(ingredient, amount, unit));
                 f1.setText("");
                 f2.setText("");
                 f3.setText("");
-                frame1.dispose();
-                Image image = new Image();
+                frame.dispose();
                 image.addImage();
             }
         });
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame1.dispose();
+                frame.dispose();
             }
         });
     }
@@ -230,7 +240,7 @@ public class RecipeAppGUI extends JFrame {
     // MODIFIES: frame1
     // EFFECTS: next action after pressing the Decrease Ingredient button
     public void decreaseIngredient() {
-        createPage("Reducing", "Reduce");
+        createPage();
         cleanUp();
         saveButton.addActionListener(new ActionListener() {
 
@@ -239,19 +249,20 @@ public class RecipeAppGUI extends JFrame {
                 String ingredient = f1.getText();
                 double amount = Double.parseDouble(f2.getText());
                 Unit unit = Unit.valueOf(f3.getText());
-                //fridge.removeOrReduceIngredient(new Ingredient(ingredient, amount, unit), amount);
                 fridgeUi.getFridgeUI().removeOrReduceIngredient(new Ingredient(ingredient, amount, unit), amount);
                 f1.setText("");
                 f2.setText("");
                 f3.setText("");
-                frame1.dispose();
+                frame.dispose();
+                //Image image = new Image();
+                image.addImage();
             }
         });
 
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame1.dispose();
+                frame.dispose();
             }
         });
     }
@@ -271,7 +282,7 @@ public class RecipeAppGUI extends JFrame {
     // Represents a class to print fridge
     private class PrintFridge extends AbstractAction {
         PrintFridge() {
-            super("Print fridge from file");
+            super("Print fridge");
         }
 
         @Override
@@ -288,7 +299,7 @@ public class RecipeAppGUI extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS:
+    // EFFECTS: focus given to a component
     private class DesktopFocusAction extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {

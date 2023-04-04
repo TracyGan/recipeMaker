@@ -29,6 +29,8 @@ public class Fridge implements Writable {
         for (Ingredient i : ingredientList) {
             if ((i.getItem().equals(item.getItem()))) {
                 i.addQuantity(item.getQuantity());
+                EventLog.getInstance().logEvent(new Event("Added " + item.getItem()
+                        + " by " + item.getQuantity()));
             }
         }
         int i = 0;
@@ -42,6 +44,8 @@ public class Fridge implements Writable {
         }
         if (!flag) {
             ingredientList.add(item);
+            EventLog.getInstance().logEvent(new Event("Added " + item.getQuantity() + " "
+                    + item.getUnit().name() + " of " + item.getItem() + " into fridge!"));
         }
     }
 
@@ -64,8 +68,14 @@ public class Fridge implements Writable {
         while (iter.hasNext()) {
             Ingredient element = iter.next();
             if (element.getItem().equals(item.getItem())) {
-                if (element.reduceQuantity(amountNeeded) == 0) {
+                double n = element.reduceQuantity(amountNeeded);
+                if (n == 0) {
                     iter.remove();
+                    EventLog.getInstance().logEvent(new Event("Removed " + Double.toString(amountNeeded)
+                            + " " + item.getUnit().name() +  " of " + item.getItem() + " from the fridge!"));
+                } else {
+                    EventLog.getInstance().logEvent(new Event("Reduced "
+                            + item.getItem() + " by " + Double.toString(amountNeeded) + item.getUnit().name() + "!"));
                 }
             }
         }

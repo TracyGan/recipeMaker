@@ -1,7 +1,6 @@
 package persistence;
 
 import model.Fridge;
-import model.Recipe;
 import org.json.JSONObject;
 
 import java.io.File;
