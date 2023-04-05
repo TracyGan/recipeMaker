@@ -25,14 +25,10 @@ public class RecipeAppGUI extends JFrame {
     private JTextField f1;
     private JTextField f2;
     private JTextField f3;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private JButton saveButton;
     private JButton cancelButton;
-    private SaveActionListener saveActionListener;
-    private CancelActionListener cancelActionListener;
     private FridgeUi fridgeUi;
     private static final String JSON_STORE = "./data/fridge.json";
     private Image image;
@@ -59,19 +55,19 @@ public class RecipeAppGUI extends JFrame {
         });
     }
 
+    // EFFECTS: creates multiple new Objects
     public void createObjects() {
         saveButton = new JButton("Save");
         cancelButton = new JButton("Cancel");
         desktop = new JDesktopPane();
-        saveActionListener = new SaveActionListener();
         desktop.addMouseListener(new DesktopFocusAction());
         controlPanel = new JInternalFrame("Control Panel Functions", true,
                 false, false, false);
         controlPanel.setLayout(new BorderLayout());
         frame = new JFrame("Change Ingredient");
         fridgeUi = new FridgeUi(new Fridge("Tracy's fridge"));
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
+        new JsonWriter(JSON_STORE);
+        new JsonReader(JSON_STORE);
         image = new Image();
     }
 
@@ -194,26 +190,18 @@ public class RecipeAppGUI extends JFrame {
     public void increaseIngredient() {
         createPage();
         cleanUp();
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String ingredient = f1.getText();
-                double amount = Double.parseDouble(f2.getText());
-                Unit unit = Unit.valueOf(f3.getText());
-                fridgeUi.getFridgeUI().addIngredient(new Ingredient(ingredient, amount, unit));
-                f1.setText("");
-                f2.setText("");
-                f3.setText("");
-                frame.dispose();
-                image.addImage();
-            }
+        saveButton.addActionListener(e -> {
+            String ingredient = f1.getText();
+            double amount = Double.parseDouble(f2.getText());
+            Unit unit = Unit.valueOf(f3.getText());
+            fridgeUi.getFridgeUI().addIngredient(new Ingredient(ingredient, amount, unit));
+            f1.setText("");
+            f2.setText("");
+            f3.setText("");
+            frame.dispose();
+            image.addImage();
         });
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-            }
-        });
+        cancelButton.addActionListener(e -> frame.dispose());
     }
 
     // MODIFIES: saveButton
@@ -224,50 +212,24 @@ public class RecipeAppGUI extends JFrame {
         }
     }
 
-    private class CancelActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Close window");
-        }
-    }
-
-    private class SaveActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Button has been clicked");
-        }
-    }
-
     // MODIFIES: frame1
     // EFFECTS: next action after pressing the Decrease Ingredient button
     public void decreaseIngredient() {
         createPage();
         cleanUp();
-        saveButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String ingredient = f1.getText();
-                double amount = Double.parseDouble(f2.getText());
-                Unit unit = Unit.valueOf(f3.getText());
-                fridgeUi.getFridgeUI().removeOrReduceIngredient(new Ingredient(ingredient, amount, unit), amount);
-                f1.setText("");
-                f2.setText("");
-                f3.setText("");
-                frame.dispose();
-                //Image image = new Image();
-                image.addImage();
-            }
+        saveButton.addActionListener(e -> {
+            String ingredient = f1.getText();
+            double amount = Double.parseDouble(f2.getText());
+            Unit unit = Unit.valueOf(f3.getText());
+            fridgeUi.getFridgeUI().removeOrReduceIngredient(new Ingredient(ingredient, amount, unit), amount);
+            f1.setText("");
+            f2.setText("");
+            f3.setText("");
+            frame.dispose();
+            image.addImage();
         });
 
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-            }
-        });
+        cancelButton.addActionListener(e -> frame.dispose());
     }
 
     // Represents a class to save fridge to file
@@ -309,5 +271,4 @@ public class RecipeAppGUI extends JFrame {
             RecipeAppGUI.this.requestFocusInWindow();
         }
     }
-
 }

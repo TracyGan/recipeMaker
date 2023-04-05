@@ -4,8 +4,6 @@ import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -18,8 +16,8 @@ public class RecipeApp {
     private Recipe repVeg;
     private Recipe repVegan;
     private Recipe repOmni;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private final JsonWriter jsonWriter;
+    private final JsonReader jsonReader;
     private static final String JSON_STORE = "./data/fridge.json";
 
     // EFFECTS: constructs fridge and runs the recipe application
@@ -335,6 +333,7 @@ public class RecipeApp {
         }
     }
 
+    // EFFECTS: prints out each item on the fridge
     private void printFridge() {
         System.out.println("Items in fridge:");
         for (int i = 0; i < fridge.getSize(); i++) {

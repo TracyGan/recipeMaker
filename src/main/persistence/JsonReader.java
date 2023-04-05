@@ -66,10 +66,4 @@ public class JsonReader {
         fr.addIngredient(i);
     }
 
-//    private void updateRating(Recipe r, JSONObject jsonObject) {
-//        JSONArray jsonArray = jsonObject.getJSONArray("Ratings");
-//        int rating = jsonObject.getInt("Ratings");
-//        r.updateRating(rating);
-//    }
-
 }

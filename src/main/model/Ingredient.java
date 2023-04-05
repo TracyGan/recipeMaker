@@ -1,6 +1,5 @@
 package model;
 
-
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -53,6 +52,7 @@ public class Ingredient implements Writable {
         return "Item = " + item + " ,Quantity = " + quantity + " " + unit;
     }
 
+    // EFFECTS: creates a new JSON object and associates the object with an ingredient
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

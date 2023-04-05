@@ -28,6 +28,7 @@ public class FridgeUi implements Writable {
     private static final String JSON_STORE = "./data/fridge.json";
     private String name;
 
+    // EFFECTS: constructs a FridgeUi
     public FridgeUi(Fridge fr) {
         frame = new JFrame("Fridge");
         ingredientList = new JList<>();
@@ -125,7 +126,7 @@ public class FridgeUi implements Writable {
     }
 
     // MODIFIES: jsonArray
-    // EFFECTS: adds the list of ingredients in the fridge to jsonArray
+    // EFFECTS: adds the list of ingredients in the fridge to jsonArray and returns the jsonArray
     private JSONArray ingredientsToJson() {
         JSONArray jsonArray = new JSONArray();
 

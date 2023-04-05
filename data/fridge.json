@@ -1,8 +1,15 @@
 {
-    "Ingredients": [{
-        "Quantity": 6,
-        "Unit": "whole",
-        "Name": "apple"
-    }],
+    "Ingredients": [
+        {
+            "Quantity": 3,
+            "Unit": "whole",
+            "Name": "chicken"
+        },
+        {
+            "Quantity": 2,
+            "Unit": "g",
+            "Name": "pineapple"
+        }
+    ],
     "name": "Tracy's fridge"
 }

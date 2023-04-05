@@ -18,8 +18,18 @@ public class Fridge implements Writable {
         ingredientList = new ArrayList<Ingredient>();
     }
 
+    // EFFECTS: return the name of the fridge
     public String getName() {
         return name;
+    }
+
+    // EFFECTS: returns the amount of a specific ingredient in the fridge
+    public double getIngredientAmount(Ingredient i) {
+        return i.getQuantity();
+    }
+
+    public ArrayList<Ingredient> getIngredients() {
+        return ingredientList;
     }
 
     // MODIFIES: this, ingredient
@@ -81,31 +91,17 @@ public class Fridge implements Writable {
         }
     }
 
-    public double getIngredientAmount(Ingredient i) {
-        return i.getQuantity();
-    }
-
-    public ArrayList<Ingredient> getIngredients() {
-        return ingredientList;
-    }
 
     // EFFECTS: returns true if ingredient is in the fridge
     public Boolean containIngredient(Ingredient i) {
-        if (ingredientList.contains(i)) {
-            return true;
-        }
-        return false;
+        return ingredientList.contains(i);
     }
 
     // EFFECTS: returns true if the fridge is empty
     public boolean checkIsEmpty() {
-        if (ingredientList.isEmpty()) {
-            return true;
-        }
-        return false;
+        return ingredientList.isEmpty();
     }
 
-    // EFFECTS: returns the number of ingredients in the fridge
     public int getSize() {
         return ingredientList.size();
     }
@@ -115,6 +111,8 @@ public class Fridge implements Writable {
         return ingredientList.get(n);
     }
 
+    // MODIFIES: json
+    // EFFECTS: creates a new JSON object relating to the ingredient
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -123,9 +121,10 @@ public class Fridge implements Writable {
         return json;
     }
 
+    // MODIFIES: jsonArray
+    // EFFECTS: adds the list of ingredients in the fridge to the jsonArray
     private JSONArray ingredientsToJson() {
         JSONArray jsonArray = new JSONArray();
-
         for (Ingredient i : ingredientList) {
             jsonArray.put(i.toJson());
         }

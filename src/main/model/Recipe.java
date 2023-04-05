@@ -93,11 +93,5 @@ public class Recipe {
         return i.getQuantity();
     }
 
-//    @Override
-//    public JSONObject toJson() {
-//        JSONObject json = new JSONObject();
-//        json.put("Ratings:", ratings);
-//        return json;
-//    }
 
 }

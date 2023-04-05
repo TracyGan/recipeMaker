@@ -40,17 +40,11 @@ public class RecipeBook {
 
     // EFFECTS: returns true if recipe is in RecipeBook
     public boolean containsRecipe(Recipe r) {
-        if (recipeList.contains(r)) {
-            return true;
-        }
-        return false;
+        return recipeList.contains(r);
     }
 
     // EFFECTS: returns true if the RecipeBook is empty
     public boolean isEmpty() {
-        if (recipeList.isEmpty()) {
-            return true;
-        }
-        return false;
+        return recipeList.isEmpty();
     }
 }
