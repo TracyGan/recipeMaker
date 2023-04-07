@@ -62,8 +62,8 @@ public class JsonReader {
         String name = jsonObject.getString("Name");
         double quantity = jsonObject.getDouble("Quantity");
         Unit unit = Unit.valueOf(jsonObject.getString("Unit"));
-        Ingredient i = new Ingredient(name, quantity, unit);
-        fr.addIngredient(i);
+        Ingredient ingredient = new Ingredient(name, quantity, unit);
+        fr.addIngredient(ingredient);
     }
 
 }

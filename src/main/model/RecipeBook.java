@@ -11,7 +11,7 @@ public class RecipeBook {
     // EFFECTS: creates a recipe book containing a list of recipes available
     // that I can make with ingredients in my fridge
     public RecipeBook() {
-        recipeList = new ArrayList<Recipe>();
+        recipeList = new ArrayList<>();
     }
 
     // MODIFIES: this, recipeList

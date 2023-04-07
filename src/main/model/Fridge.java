@@ -11,11 +11,13 @@ import java.util.ListIterator;
 public class Fridge implements Writable {
     private ArrayList<Ingredient> ingredientList;
     private String name;
+    private JSONObject json;
+    private JSONArray jsonArray;
 
     // EFFECTS: constructs a fridge with a name and an empty list of ingredients
     public Fridge(String name) {
         this.name = name;
-        ingredientList = new ArrayList<Ingredient>();
+        ingredientList = new ArrayList<>();
     }
 
     // EFFECTS: return the name of the fridge
@@ -115,7 +117,7 @@ public class Fridge implements Writable {
     // EFFECTS: creates a new JSON object relating to the ingredient
     @Override
     public JSONObject toJson() {
-        JSONObject json = new JSONObject();
+        json = new JSONObject();
         json.put("name", name);
         json.put("Ingredients", ingredientsToJson());
         return json;
@@ -124,7 +126,7 @@ public class Fridge implements Writable {
     // MODIFIES: jsonArray
     // EFFECTS: adds the list of ingredients in the fridge to the jsonArray
     private JSONArray ingredientsToJson() {
-        JSONArray jsonArray = new JSONArray();
+        jsonArray = new JSONArray();
         for (Ingredient i : ingredientList) {
             jsonArray.put(i.toJson());
         }
