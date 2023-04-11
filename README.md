@@ -49,6 +49,8 @@ Tue Apr 04 14:30:58 PDT 2023
 Removed 2.0 whole of apple from the fridge!
 
 
+##### There are two representative samples of adding ingredients into the fridge because I want to demonstrate reducing the ingredient by a certain amount and removing the entire ingredient.
+
 ### Phase 4 : Task 3
 #### How to improve on design?
 To improve the design of my project, I would first start with separating my RecipeApp class in my UI package into different classes. This is because there are different methods available in this class are in charge of performing different actions, related to different objects. As an example, there is a method to deal with entering ingredients into a fridge [ findMethod() ]. However, in the same RecipeApp class, I have another method to deal with asking the user's ratings for recipes they have tried [ askTried() ]. Therefore, if I had more time to work on this project, I would start with refactoring the RecipeApp class in the UI package to adhere to the Single Responsibility Principle.
